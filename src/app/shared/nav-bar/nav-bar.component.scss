@@ -1,0 +1,136 @@
+a {
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 1rem 0.5rem;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: rgba(0, 0, 255, 0.42);
+}
+
+a:active {
+  background-color: rgba(42, 42, 245, 0.42);
+  cursor: grabbing;
+}
+
+.active {
+  background-color: black;
+}
+
+.burger-menu {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 20px;
+  justify-content: space-between;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+}
+
+.bar {
+  background-color: white;
+  height: 3px;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.bar[data-menu-open="true"]:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.bar[data-menu-open="true"]:nth-child(2) {
+  opacity: 0;
+}
+
+.bar[data-menu-open="true"]:nth-child(3) {
+  transform: rotate(45deg) translate(-6px, -6px);
+}
+
+.burger-menu-wrapper {
+  align-self: stretch;
+  background-color: black;
+  display: none;
+  margin-left: auto;
+  padding: 1rem;
+  position: relative;
+}
+
+.burger-menu-nav-items {
+  padding: 10px;
+}
+
+.burger-menu-nav-items:first-child {
+  margin-top: 1rem;
+}
+
+.burger-menu-nav-items:last-child {
+  margin-bottom: 1rem;
+}
+
+.content {
+  background-color: rgba(0, 0, 255, 0.467);
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-width: 130px;
+  margin-top: 2rem;
+  overflow: hidden;
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
+  transition: height 0.3s;
+}
+
+.content[data-menu-open="false"] {
+  height: 0;
+}
+
+.content[data-menu-open="true"] {
+  height: 222px;
+}
+
+nav {
+  align-items: center;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 5px gray;
+  background-color: rgba(0, 0, 255, 0.42);
+  display: flex;
+  left: 0;
+  padding: 0 2rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.nav-placeholder {
+  height: 65px;
+}
+
+nav a:not(.burger-menu-nav-items) {
+  margin-right: 1rem;
+}
+
+.nav-items-container {
+  align-items: center;
+  display: inline-flex;
+  height: 65px;
+}
+
+@media only screen and (max-width: 768px) {
+  .burger-menu-wrapper {
+    display: block;
+  }
+
+  nav {
+    padding: 0 1rem;
+  }
+
+  nav a:not(.burger-menu-nav-items) {
+    display: none;
+  }
+}

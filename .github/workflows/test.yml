@@ -1,4 +1,4 @@
-name: tests
+name: Unit/Component tests
 on:
   push:
     branches: [main, development]

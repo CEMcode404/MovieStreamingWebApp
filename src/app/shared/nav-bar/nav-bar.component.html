@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="nav-items-container">
+    <a
+      [class.active]="
+        items.name.toLowerCase() === selectedNavItem.toLowerCase()
+      "
+      *ngFor="let items of navItems"
+      href="{{ items.path }}"
+      >{{ items.name }}</a
+    >
+  </div>
+
+  <div aria-label="burger-menu-bttn" class="burger-menu-wrapper">
+    <div class="burger-menu" (click)="toggleMenu()">
+      <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+      <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+      <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+    </div>
+    <div class="content" attr.data-menu-open="{{ isMenuOpen }}">
+      <a
+        [class.active]="
+          items.name.toLowerCase() === selectedNavItem.toLowerCase()
+        "
+        *ngFor="let items of navItems"
+        href="{{ items.path }}"
+        class="burger-menu-nav-items"
+        >{{ items.name }}</a
+      >
+    </div>
+  </div>
+</nav>
+<div class="nav-placeholder"></div>
