@@ -1,0 +1,28 @@
+<div class="hero-container">
+  <section
+    class="hero"
+    (mouseenter)="stopHeroRotation()"
+    (mouseleave)="startHeroRotation(5000)"
+  >
+    <div *ngFor="let hero of heroes" class="hero-img-container">
+      <img class="hero-img" src="{{ hero.src }}" />
+      <div class="hero-description">
+        <p class="hero-title">
+          {{ hero.title }}
+        </p>
+        <p class="hero-summary">{{ hero.description }}</p>
+        <button class="hero-bttn">Watch Now</button>
+      </div>
+    </div>
+  </section>
+  <div class="nav-bttns" *ngIf="heroes.length > 1">
+    <input
+      name="nav-bttn"
+      [checked]="displayedHeroIndex === i"
+      (click)="handleRadioBttnsClick($event)"
+      type="radio"
+      *ngFor="let hero of heroes; let i = index"
+      value="{{ i }}"
+    />
+  </div>
+</div>

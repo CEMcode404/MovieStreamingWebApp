@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 interface NavItem {
