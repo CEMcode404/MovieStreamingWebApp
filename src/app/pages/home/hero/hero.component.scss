@@ -57,7 +57,7 @@
   margin: 0 auto;
   position: relative;
   transform: translateX(calc(-100% * var(--hero-index)));
-  transition: transform 0.5s forwards;
+  transition: transform 0.5s;
 }
 
 .hero-img-container::before {
