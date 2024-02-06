@@ -53,7 +53,6 @@ a:active {
 .burger-menu-wrapper {
   align-self: stretch;
   background-color: var(--tertiary-color);
-  display: none;
   margin-left: auto;
   padding: 1rem;
   position: relative;
@@ -71,7 +70,7 @@ a:active {
   margin-bottom: 1rem;
 }
 
-.content {
+.nav-links-container--dropdown {
   background-color: var(--secondary-color);
   border: none;
   color: var(--primary-color);
@@ -86,16 +85,15 @@ a:active {
   transition: height 0.3s;
 }
 
-.content[data-menu-open="false"] {
+.nav-links-container--dropdown[data-menu-open="false"] {
   height: 0;
 }
 
-.content[data-menu-open="true"] {
+.nav-links-container--dropdown[data-menu-open="true"] {
   height: 222px;
 }
 
 nav {
-  align-items: center;
   box-sizing: border-box;
   box-shadow: 0px 5px 5px var(--box-shadow);
   background-color: var(--secondary-color);
@@ -104,7 +102,7 @@ nav {
   padding: 0 2rem;
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 1;
 }
 
@@ -117,24 +115,19 @@ nav a:not(.burger-menu-nav-items) {
 }
 
 .nav-items-container {
-  align-items: center;
   display: flex;
-  height: 65px;
   max-width: 1100px;
-  min-width: 320px;
   margin: 0 auto;
 }
 
-@media only screen and (max-width: 768px) {
-  .burger-menu-wrapper {
-    display: block;
-  }
+.nav-links-container {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+}
 
+@media only screen and (max-width: 768px) {
   nav {
     padding: 0 1rem;
-  }
-
-  nav a:not(.burger-menu-nav-items) {
-    display: none;
   }
 }
