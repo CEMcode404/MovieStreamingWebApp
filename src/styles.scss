@@ -1,14 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
   --primary-color: white;
-  --secondary-color: rgb(149, 0, 255);
-  --secondary-color-hover: rgb(94, 0, 161);
-  --secondary-color-active: rgb(118, 1, 201);
+  --secondary-color: #9b1c31;
+  --secondary-color-hover: gray;
+  --secondary-color-active: rgb(106, 106, 106);
   --tertiary-color: black;
   --box-shadow: gray;
 }
 
 body {
+  background-color: rgb(26, 26, 26);
   max-width: 1200px;
   min-width: 320px;
   margin: 0 auto;

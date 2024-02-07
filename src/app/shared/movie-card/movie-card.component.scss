@@ -1,0 +1,19 @@
+.movie-card {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  aspect-ratio: 1/1.3; //400/520 x 30pcs.
+}
+
+.movie-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 5px 5px var(--box-shadow);
+  box-sizing: border-box;
+}
+
+.movie-card h2 {
+  color: var(--primary-color);
+  text-align: center;
+  font-size: 1.3rem;
+}

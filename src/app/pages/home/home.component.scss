@@ -1,0 +1,36 @@
+.movie-section {
+  margin: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 3fr);
+}
+
+.genres {
+  color: var(--primary-color);
+  display: flex;
+  margin: 1rem;
+}
+
+.genres p {
+  margin-right: 2rem;
+}
+
+.genres p:last-child {
+  margin-right: 0;
+}
+
+.footer {
+  box-shadow: 0px 0px 10px var(--box-shadow);
+  background-color: var(--secondary-color);
+  background-color: #9b1c31;
+  height: 300px;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+}
+
+.trending {
+  margin: 0 1rem 2rem;
+  background-color: rgb(126, 126, 126);
+  height: 300px;
+}
