@@ -1,6 +1,11 @@
-<article class="movie-card">
-  <div>
-    <img src="https://i.imgur.com/Mk0uTVI.jpg" title="source: imgur.com" />
+<article (window:resize)="onResize()" #movieCard class="movie-card">
+  <img src="{{ movieCardData.imgSrc }}" alt="{{ movieCardData.title }}" />
+  <div class="title">
+    <a [attr.data-blur]="isTitleOverflowing">{{ movieCardData.title }}</a>
+    <span
+      [style.display]="isTitleOverflowing ? 'block' : 'none'"
+      class="title-continuation-dots"
+      >. . .</span
+    >
   </div>
-  <h2>Title of the Abyss</h2>
 </article>

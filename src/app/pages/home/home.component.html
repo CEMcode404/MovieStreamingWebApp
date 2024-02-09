@@ -11,11 +11,9 @@
   <div></div>
 </section>
 <section class="movie-section">
-  <movie-card></movie-card>
-  <movie-card></movie-card>
-  <movie-card></movie-card>
-  <movie-card></movie-card>
-  <movie-card></movie-card>
-  <movie-card></movie-card>
+  <movie-card
+    *ngFor="let movieData of movies"
+    [movieCardData]="movieData"
+  ></movie-card>
 </section>
 <footer class="footer"></footer>

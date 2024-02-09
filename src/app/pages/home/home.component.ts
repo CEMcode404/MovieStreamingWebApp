@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { HeroComponent } from './hero/hero.component';
 import { MovieCardComponent } from '../../shared/movie-card/movie-card.component';
+import movies from '../../../assets/mock-data/movies.json';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavBarComponent, HeroComponent, MovieCardComponent],
+  imports: [NavBarComponent, HeroComponent, MovieCardComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  movies = movies;
+}
