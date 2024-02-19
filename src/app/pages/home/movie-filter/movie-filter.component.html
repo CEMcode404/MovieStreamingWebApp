@@ -1,0 +1,48 @@
+<section class="movie-filter" #movieFilter (window:resize)="onResize()">
+  <div class="filter-bar">
+    <div
+      [attr.data-isHidden]="isFilterMenuHidden"
+      class="filter-menu-bttn"
+      (click)="toggleFilterMenu()"
+      role="button"
+    >
+      <div class="triangle"></div>
+      <p *ngIf="isFilterMenuHidden">More Filters</p>
+      <p *ngIf="!isFilterMenuHidden">Less Filters</p>
+    </div>
+    <div class="clear-bttn" (click)="clearActiveFilter()" role="button">
+      Clear Filters
+    </div>
+    <p
+      *ngFor="let filter of inviewFilters"
+      (click)="toggleFilterActiveState(filter.name)"
+      class="inview-filter"
+      [ngClass]="{
+        'selected-filter': filter.isActive,
+        hidden: filter.isHidden
+      }"
+    >
+      {{ filter.name | titlecase }}
+    </p>
+  </div>
+  <div class="dropdown-menu" [attr.data-isHidden]="isFilterMenuHidden">
+    <div class="menu-content">
+      <div
+        *ngFor="let filter of filters"
+        [class.selected-filter]="filter.isActive"
+        (click)="toggleFilterActiveState(filter.name)"
+      >
+        <span>
+          {{ filter.name | titlecase }}
+        </span>
+        <span *ngIf="filter.isActive" class="close-icon"></span>
+      </div>
+    </div>
+  </div>
+  <div class="tags">
+    <p>Filters:</p>
+    <div>
+      <span *ngFor="let filter of activeFilters" class="tag">{{ filter }}</span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,205 @@
+.clear-bttn {
+  color: var(--primary-color);
+  border: none;
+  background-color: var(--secondary-color);
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-right: 3rem;
+  flex-shrink: 0;
+  border-radius: 5px;
+}
+
+.clear-bttn:hover {
+  cursor: pointer;
+  background-color: var(--secondary-color-hover);
+  color: var(--primary-color);
+}
+
+.clear-bttn:active {
+  cursor: grabbing;
+  background-color: var(--secondary-color-active);
+}
+
+.close-icon {
+  position: relative;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.close-icon::before,
+.close-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.close-icon::before {
+  transform: rotate(45deg);
+}
+
+.close-icon::after {
+  transform: rotate(-45deg);
+}
+
+.filter-bar {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.inview-filter:hover {
+  cursor: pointer;
+  background-color: var(--secondary-color-hover);
+}
+
+.inview-filter:active {
+  cursor: pointer;
+  background-color: var(--secondary-color-active);
+}
+
+.inview-filter {
+  text-wrap: nowrap;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin: 0 1rem 0 0;
+}
+
+.inview-filter:last-child {
+  margin-right: 0;
+}
+
+.filter-menu-bttn {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: var(--secondary-color);
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  border-radius: 5px;
+
+  p {
+    margin: 0 0 0 0.5rem;
+  }
+}
+
+.dropdown-menu {
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+  overflow: hidden;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.dropdown-menu[data-isHidden="false"] {
+  height: auto;
+}
+
+.dropdown-menu[data-isHidden="true"] {
+  height: 0;
+}
+
+.filter-menu-bttn:hover {
+  background-color: var(--secondary-color-hover);
+}
+.filter-menu-bttn:active {
+  background-color: var(--secondary-color-active);
+}
+
+.filter-menu-bttn[data-isHidden="false"] {
+  .triangle {
+    transform: rotateX(180deg);
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.movie-filter {
+  box-sizing: border-box;
+  flex-direction: column;
+  color: var(--primary-color);
+  display: flex;
+  margin: 1rem;
+  min-width: 320px;
+}
+
+.menu-content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    text-wrap: nowrap;
+  }
+
+  div:hover {
+    color: var(--primary-color);
+    background-color: var(--secondary-color-hover);
+    cursor: pointer;
+  }
+
+  div:active {
+    background-color: var(--secondary-color-active);
+    cursor: grabbing;
+  }
+}
+
+.selected-filter {
+  background-color: var(--secondary-color-active);
+  color: var(--primary-color);
+}
+
+.selected-filter.inview-filter {
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+}
+
+.triangle {
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--primary-color);
+  height: 0;
+  transition: transform 200ms;
+  width: 0;
+}
+
+.tags {
+  display: flex;
+  margin: 1rem 0 0;
+
+  p {
+    margin: 0.25rem 1rem 0.25rem 0;
+    padding: 0.5rem 0;
+  }
+}
+
+.tag {
+  display: inline-block;
+  color: var(--primary-color);
+  border-radius: 25px;
+  background-color: var(--tertiary-color);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+}
+
+@media screen and (max-width: 630px) {
+  .menu-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
