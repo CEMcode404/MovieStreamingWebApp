@@ -5,16 +5,6 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.footer {
-  box-shadow: 0px 0px 10px var(--box-shadow);
-  background-color: var(--secondary-color);
-  background-color: #9b1c31;
-  height: 300px;
-  width: 100vw;
-  position: absolute;
-  left: 0;
-}
-
 .trending {
   margin: 0 1rem 2rem;
   background-color: rgb(126, 126, 126);

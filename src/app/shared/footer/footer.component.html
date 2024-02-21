@@ -1,0 +1,40 @@
+<footer
+  [style.height]="height"
+  #footer
+  (window:resize)="onResize()"
+  class="footer"
+>
+  <div class="footer-ref">
+    <div class="footer-box">
+      <div class="brand-identity">
+        <img class="brand-logo" src="/assets/images/streammovies-logo.png" />
+        <p>
+          Dive into a World of Movies with streammovies.com. Unlock Unlimited
+          Entertainment. Stream Anytime, Anywhere.
+        </p>
+      </div>
+
+      <div class="contact-us">
+        <h2>Contact Us</h2>
+        <p>{{ "contact@streammovies.com" }}</p>
+        <p>Tel (123) 456-7890</p>
+        <p>Address:</p>
+        <p>Roxas St, Davao City, Philippines, 8000</p>
+      </div>
+
+      <div class="socmed">
+        <h2>Follow Us</h2>
+        <img
+          class="logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+        />
+        <img
+          class="logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/5/53/Facebookicon.png"
+        />
+        <img class="logo" src="https://i.imgur.com/6r7MgPL.png" />
+      </div>
+      <p class="copyright">© 2024 Carlo Mirador Jr. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

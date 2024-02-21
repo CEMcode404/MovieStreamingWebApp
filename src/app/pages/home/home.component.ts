@@ -4,6 +4,7 @@ import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { HeroComponent } from './hero/hero.component';
 import { MovieCardComponent } from '../../shared/movie-card/movie-card.component';
 import { MovieFilterComponent } from './movie-filter/movie-filter.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 import movies from '../../../assets/mock-data/movies.json';
 
 @Component({
@@ -15,6 +16,7 @@ import movies from '../../../assets/mock-data/movies.json';
     MovieCardComponent,
     CommonModule,
     MovieFilterComponent,
+    FooterComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

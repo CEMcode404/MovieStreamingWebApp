@@ -6,10 +6,11 @@
   --secondary-color-active: rgb(106, 106, 106);
   --tertiary-color: black;
   --box-shadow: gray;
+  --background-color: rgb(26, 26, 26);
 }
 
 body {
-  background-color: rgb(26, 26, 26);
+  background-color: var(--background-color);
   max-width: 1200px;
   min-width: 320px;
   margin: 0 auto;
