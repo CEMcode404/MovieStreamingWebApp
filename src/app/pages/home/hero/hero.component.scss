@@ -18,10 +18,6 @@
   z-index: 0;
 }
 
-.hero-title {
-  font-size: 2rem;
-}
-
 .hero-bttn {
   border: none;
   border-radius: 10px;
@@ -47,6 +43,7 @@
   color: white;
   width: 75%;
   max-height: 100%;
+  overflow: hidden;
 }
 
 .hero-img-container {
@@ -95,14 +92,9 @@ input[type="radio"] {
       rgba(0, 0, 0, 0) 100%
     );
   }
-
-  .hero-title {
-    text-wrap: nowrap;
-    overflow: hidden;
-  }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   .hero-summary {
     display: none;
   }

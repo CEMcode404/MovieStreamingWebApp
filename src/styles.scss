@@ -9,17 +9,107 @@
   --background-color: rgb(26, 26, 26);
 }
 
+h2 {
+  font-size: 2rem;
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.1rem;
+  kerning: auto;
+  line-height: 2rem;
+  margin-bottom: 1rem;
+}
+
 body {
   background-color: var(--background-color);
   max-width: 1200px;
   min-width: 320px;
   margin: 0 auto;
-  font-size: 1.2rem;
+}
+
+* {
+  font-size: 1.1rem;
   line-height: 1.5rem;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+//font classes
+
+// <uniquifier>: Use a uniquifier for the class name
+// <weight>: Use a value from 400 to 900
+
+// .cinzel-<uniquifier> {
+//   font-family: "Cinzel", serif;
+//   font-optical-sizing: auto;
+//   font-weight: <weight>;
+//   font-style: normal;
+// }
+
+.lato-thin {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.lato-light {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.lato-thin-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.lato-light-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.lato-regular-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.lato-bold-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.lato-black-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }
 
 @media only screen and (max-width: 768px) {
-  body {
+  * {
     font-size: 1rem;
   }
 }

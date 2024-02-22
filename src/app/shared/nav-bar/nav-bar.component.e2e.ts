@@ -13,7 +13,7 @@ test.describe('Horizontal Links', () => {
   }) => {
     const links = page.locator(horizontalLinksClass);
 
-    page.setViewportSize({ width: 1, height: 1000 });
+    await page.setViewportSize({ width: 1, height: 1000 });
 
     await expect(links).toBeHidden();
   });
@@ -23,7 +23,7 @@ test.describe('Horizontal Links', () => {
   }) => {
     const burgerMenu = page.locator(burgerMenuClass);
 
-    page.setViewportSize({ width: 1, height: 1000 });
+    await page.setViewportSize({ width: 1, height: 1000 });
 
     await expect(burgerMenu).toBeVisible();
   });
@@ -31,7 +31,16 @@ test.describe('Horizontal Links', () => {
   test('not overflowing should set the navbar to normal mode and should hide burger menu', async ({
     page,
   }) => {
+    const links = page.locator(horizontalLinksClass);
     const burgerMenu = page.locator(burgerMenuClass);
+    const linksRightBorderPosition = await links.evaluate((links) =>
+      Math.ceil(links.getBoundingClientRect().right)
+    );
+
+    await page.setViewportSize({
+      width: linksRightBorderPosition,
+      height: 1000,
+    });
 
     await expect(burgerMenu).toBeHidden();
   });
@@ -40,6 +49,14 @@ test.describe('Horizontal Links', () => {
     page,
   }) => {
     const links = page.locator(horizontalLinksClass);
+    const linksRightBorderPosition = await links.evaluate((links) =>
+      Math.ceil(links.getBoundingClientRect().right)
+    );
+
+    await page.setViewportSize({
+      width: linksRightBorderPosition,
+      height: 1000,
+    });
 
     await expect(links).toBeVisible();
   });
