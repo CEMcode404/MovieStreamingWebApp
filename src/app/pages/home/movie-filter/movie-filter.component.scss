@@ -52,6 +52,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
+  margin-top: 1rem;
 }
 
 .inview-filter:hover {
@@ -60,7 +61,7 @@
 }
 
 .inview-filter:active {
-  cursor: pointer;
+  cursor: grabbing;
   background-color: var(--secondary-color-active);
 }
 
@@ -68,7 +69,7 @@
   text-wrap: nowrap;
   padding: 0.5rem;
   border-radius: 5px;
-  margin: 0 1rem 0 0;
+  margin: 0 1rem 0.5rem 0;
 }
 
 .inview-filter:last-child {
@@ -109,6 +110,7 @@
 .filter-menu-bttn:hover {
   background-color: var(--secondary-color-hover);
 }
+
 .filter-menu-bttn:active {
   background-color: var(--secondary-color-active);
 }
@@ -128,7 +130,7 @@
   flex-direction: column;
   color: var(--primary-color);
   display: flex;
-  margin: 1rem;
+  margin: 2rem 1rem 0.5rem;
   min-width: 320px;
 }
 
@@ -169,6 +171,18 @@
   color: var(--tertiary-color);
 }
 
+.selected-filter.inview-filter:hover {
+  cursor: pointer;
+  background-color: var(--secondary-color-hover);
+  color: white;
+}
+
+.selected-filter.inview-filter:active {
+  cursor: grabbing;
+  background-color: var(--secondary-color-active);
+  color: white;
+}
+
 .triangle {
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
@@ -180,7 +194,7 @@
 
 .tags {
   display: flex;
-  margin: 1rem 0 0;
+  margin: 0.5rem 0 0;
 
   p {
     margin: 0.25rem 1rem 0.25rem 0;
