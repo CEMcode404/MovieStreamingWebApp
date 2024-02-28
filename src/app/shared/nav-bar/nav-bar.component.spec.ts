@@ -25,7 +25,6 @@ describe('NavBarComponent', () => {
   });
 
   const burgerMenuClass = '.burger-menu-wrapper';
-  const horizontalLinksClass = '.nav-links-container';
   const dropdownLinksClass = '.nav-links-container--dropdown';
 
   describe('Initialization', () => {
@@ -129,25 +128,31 @@ describe('NavBarComponent', () => {
     });
 
     it('burger menu mode should hide the horizontal navigational links', () => {
-      const horizontallLinks = fixture.debugElement.query(
-        By.css(horizontalLinksClass)
-      ).nativeElement;
+      const horizontalLinks = fixture.debugElement.queryAll(
+        By.css('a:not(.burger-menu-nav-items)')
+      );
 
       component.enableBurgerMenuMode();
       fixture.detectChanges();
 
-      expect(getComputedStyle(horizontallLinks).visibility).toBe('hidden');
+      for (let horizontalLink of horizontalLinks)
+        expect(getComputedStyle(horizontalLink.nativeElement).visibility).toBe(
+          'hidden'
+        );
     });
 
     it('normal mode should show the horizontal navigational links', () => {
-      const horizontallLinks = fixture.debugElement.query(
-        By.css(horizontalLinksClass)
-      ).nativeElement;
+      const horizontalLinks = fixture.debugElement.queryAll(
+        By.css('a:not(.burger-menu-nav-items)')
+      );
 
       component.disableBurgerMenuMode();
       fixture.detectChanges();
 
-      expect(getComputedStyle(horizontallLinks).visibility).toBe('visible');
+      for (let horizontalLink of horizontalLinks)
+        expect(getComputedStyle(horizontalLink.nativeElement).visibility).toBe(
+          'visible'
+        );
     });
 
     it('normal menu mode should hide the burger menu', () => {

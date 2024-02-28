@@ -1,41 +1,39 @@
 <nav #nav class="navbar">
   <div class="nav-items-container">
-    <div
-      (window:resize)="onResize()"
-      class="nav-links-container"
-      [style.visibility]="isBurgerMenuMode ? 'hidden' : 'visible'"
-    >
+    <div (window:resize)="onResize()" class="nav-links-container">
+      <div
+        aria-label="burger-menu-bttn"
+        class="burger-menu-wrapper"
+        (click)="toggleMenu()"
+        [style.display]="isBurgerMenuMode ? 'block' : 'none'"
+      >
+        <div class="burger-menu">
+          <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+          <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+          <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+        </div>
+        <div
+          class="nav-links-container--dropdown"
+          attr.data-menu-open="{{ isMenuOpen }}"
+        >
+          <a
+            [class.active]="items.path === currentRoute"
+            *ngFor="let items of navItems"
+            href="{{ items.path }}"
+            class="burger-menu-nav-items"
+            >{{ items.name }}</a
+          >
+        </div>
+      </div>
+
+      <img class="brand-logo" src="/assets/images/streammovies-logo.png" />
       <a
         [class.active]="items.path === currentRoute"
         *ngFor="let items of navItems"
         href="{{ items.path }}"
+        [style.visibility]="isBurgerMenuMode ? 'hidden' : 'visible'"
         >{{ items.name }}</a
       >
-    </div>
-
-    <div
-      aria-label="burger-menu-bttn"
-      class="burger-menu-wrapper"
-      (click)="toggleMenu()"
-      [style.display]="isBurgerMenuMode ? 'block' : 'none'"
-    >
-      <div class="burger-menu">
-        <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
-        <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
-        <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
-      </div>
-      <div
-        class="nav-links-container--dropdown"
-        attr.data-menu-open="{{ isMenuOpen }}"
-      >
-        <a
-          [class.active]="items.path === currentRoute"
-          *ngFor="let items of navItems"
-          href="{{ items.path }}"
-          class="burger-menu-nav-items"
-          >{{ items.name }}</a
-        >
-      </div>
     </div>
   </div>
 </nav>
