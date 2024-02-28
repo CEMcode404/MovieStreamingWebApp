@@ -1,0 +1,24 @@
+<div
+  #pagination
+  class="pagination"
+  *ngIf="pageNumbers && pageNumbers.length > 1"
+>
+  <nav>
+    <span class="arrow-wrapper" (click)="gotoPreviousPage()"
+      ><img class="arrow" src="/assets/images/chevron-left-solid.svg"
+    /></span>
+    <div class="page-numbers-wrapper">
+      <span
+        *ngFor="let pageNumber of pageNumbers"
+        class="page-number"
+        [ngClass]="{ 'current-page': currentPage === pageNumber }"
+        [ngStyle]="{ width: pageNumberWidth }"
+        (click)="gotoPage(pageNumber)"
+        >{{ pageNumber }}</span
+      >
+    </div>
+    <span class="arrow-wrapper" (click)="gotoNextPage()"
+      ><img class="arrow" src="/assets/images/chevron-right-solid.svg"
+    /></span>
+  </nav>
+</div>

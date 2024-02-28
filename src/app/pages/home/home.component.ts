@@ -6,6 +6,7 @@ import { MovieCardComponent } from '../../shared/movie-card/movie-card.component
 import { MovieFilterComponent } from './movie-filter/movie-filter.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import movies from '../../../assets/mock-data/movies.json';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ import movies from '../../../assets/mock-data/movies.json';
     CommonModule,
     MovieFilterComponent,
     FooterComponent,
+    PaginationComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
