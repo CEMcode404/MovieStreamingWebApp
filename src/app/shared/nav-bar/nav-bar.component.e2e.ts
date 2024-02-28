@@ -5,17 +5,16 @@ test.beforeEach(async ({ page }) => {
 });
 
 const burgerMenuClass = '.burger-menu-wrapper';
-const horizontalLinksClass = '.nav-links-container';
 
 test.describe('Horizontal Links', () => {
   test('overflowing should set the navbar to burger menu mode and hide horizontal links', async ({
     page,
   }) => {
-    const links = page.locator(horizontalLinksClass);
+    const links = page.locator('.navbar a:not(.burger-menu-nav-items)');
 
     await page.setViewportSize({ width: 1, height: 1000 });
 
-    await expect(links).toBeHidden();
+    for (let link of await links.all()) await expect(link).toBeHidden();
   });
 
   test('overflowing should set the navbar to burger menu mode and show burger menu', async ({
@@ -31,11 +30,11 @@ test.describe('Horizontal Links', () => {
   test('not overflowing should set the navbar to normal mode and should hide burger menu', async ({
     page,
   }) => {
-    const links = page.locator(horizontalLinksClass);
+    const links = page.locator('.navbar a:not(.burger-menu-nav-items)');
     const burgerMenu = page.locator(burgerMenuClass);
-    const linksRightBorderPosition = await links.evaluate((links) =>
-      Math.ceil(links.getBoundingClientRect().right)
-    );
+    const linksRightBorderPosition = await links
+      .last()
+      .evaluate((link) => Math.ceil(link.getBoundingClientRect().right));
 
     await page.setViewportSize({
       width: linksRightBorderPosition,
@@ -48,16 +47,16 @@ test.describe('Horizontal Links', () => {
   test('not overflowing should set the navbar to normal mode and should show horizontal links', async ({
     page,
   }) => {
-    const links = page.locator(horizontalLinksClass);
-    const linksRightBorderPosition = await links.evaluate((links) =>
-      Math.ceil(links.getBoundingClientRect().right)
-    );
+    const links = page.locator('.navbar a:not(.burger-menu-nav-items)');
+    const linksRightBorderPosition = await links
+      .last()
+      .evaluate((link) => Math.ceil(link.getBoundingClientRect().right));
 
     await page.setViewportSize({
       width: linksRightBorderPosition,
       height: 1000,
     });
 
-    await expect(links).toBeVisible();
+    for (let link of await links.all()) await expect(link).toBeVisible();
   });
 });
