@@ -25,7 +25,8 @@ describe('NavBarComponent', () => {
   });
 
   const burgerMenuClass = '.burger-menu-wrapper';
-  const dropdownLinksClass = '.nav-links-container--dropdown';
+  const horizontalLinksClass = '.horizontal-links';
+  const dropdownLinksClass = '.burger-menu-dropdown';
 
   describe('Initialization', () => {
     it('should create', () => {
@@ -98,7 +99,7 @@ describe('NavBarComponent', () => {
       const toggleMenu = spyOn(component, 'toggleMenu');
 
       fixture.debugElement
-        .query(By.css(burgerMenuClass))
+        .query(By.css('.burger-menu-bttn'))
         .triggerEventHandler('click');
 
       expect(toggleMenu).toHaveBeenCalled();
@@ -128,31 +129,25 @@ describe('NavBarComponent', () => {
     });
 
     it('burger menu mode should hide the horizontal navigational links', () => {
-      const horizontalLinks = fixture.debugElement.queryAll(
-        By.css('a:not(.burger-menu-nav-items)')
-      );
+      const horizontalLinks = fixture.debugElement.query(
+        By.css(horizontalLinksClass)
+      ).nativeElement;
 
       component.enableBurgerMenuMode();
       fixture.detectChanges();
 
-      for (let horizontalLink of horizontalLinks)
-        expect(getComputedStyle(horizontalLink.nativeElement).visibility).toBe(
-          'hidden'
-        );
+      expect(getComputedStyle(horizontalLinks).visibility).toBe('hidden');
     });
 
     it('normal mode should show the horizontal navigational links', () => {
-      const horizontalLinks = fixture.debugElement.queryAll(
-        By.css('a:not(.burger-menu-nav-items)')
-      );
+      const horizontalLinks = fixture.debugElement.query(
+        By.css(horizontalLinksClass)
+      ).nativeElement;
 
       component.disableBurgerMenuMode();
       fixture.detectChanges();
 
-      for (let horizontalLink of horizontalLinks)
-        expect(getComputedStyle(horizontalLink.nativeElement).visibility).toBe(
-          'visible'
-        );
+      expect(getComputedStyle(horizontalLinks).visibility).toBe('visible');
     });
 
     it('normal menu mode should hide the burger menu', () => {

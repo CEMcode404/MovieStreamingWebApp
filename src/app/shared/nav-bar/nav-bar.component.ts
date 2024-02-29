@@ -2,14 +2,13 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Inject,
   OnInit,
   OnDestroy,
-  PLATFORM_ID,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 
 interface NavItem {
@@ -41,7 +40,7 @@ export class NavBarComponent implements AfterViewInit, OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -59,9 +58,8 @@ export class NavBarComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   private determineNavBarMode(): void {
-    this.isContentFitWithinParentWidth(
-      this.myElementRef.nativeElement,
-      this.myElementRef.nativeElement.querySelector('.nav-links-container')
+    this.isContentOverflowing(
+      this.myElementRef.nativeElement.querySelector('.horizontal-links')
     )
       ? this.disableBurgerMenuMode()
       : this.enableBurgerMenuMode();
@@ -74,22 +72,14 @@ export class NavBarComponent implements AfterViewInit, OnInit, OnDestroy {
   disableBurgerMenuMode() {
     this.isBurgerMenuMode = false;
   }
-
-  private isContentFitWithinParentWidth(
-    parentElement: HTMLElement,
-    childElement: HTMLElement
-  ): boolean | void {
-    let paddingRight: number;
-    paddingRight = parseInt(
-      getComputedStyle(parentElement)
-        .getPropertyValue('padding-right')
-        .replace('px', '')
-    );
-    return parentElement.offsetWidth - paddingRight > childElement.scrollWidth;
+  //continue this, refactor tests, scss clean up
+  private isContentOverflowing(element: HTMLElement): boolean | void {
+    return element.offsetWidth >= element.scrollWidth;
   }
 
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) this.determineNavBarMode();
+    this.determineNavBarMode();
+    this.changeDetector.detectChanges();
   }
 
   ngOnDestroy(): void {

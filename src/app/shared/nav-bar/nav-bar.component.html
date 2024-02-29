@@ -1,40 +1,50 @@
 <nav #nav class="navbar">
-  <div class="nav-items-container">
-    <div (window:resize)="onResize()" class="nav-links-container">
+  <div (window:resize)="onResize()" class="nav-items-container">
+    <div
+      class="burger-menu-wrapper"
+      [style.display]="isBurgerMenuMode ? 'block' : 'none'"
+    >
       <div
-        aria-label="burger-menu-bttn"
-        class="burger-menu-wrapper"
+        class="burger-menu-bttn"
         (click)="toggleMenu()"
-        [style.display]="isBurgerMenuMode ? 'block' : 'none'"
+        aria-label="burger-menu-bttn"
       >
         <div class="burger-menu">
           <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
           <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
           <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
         </div>
-        <div
-          class="nav-links-container--dropdown"
-          attr.data-menu-open="{{ isMenuOpen }}"
-        >
-          <a
-            [class.active]="items.path === currentRoute"
-            *ngFor="let items of navItems"
-            href="{{ items.path }}"
-            class="burger-menu-nav-items"
-            >{{ items.name }}</a
-          >
-        </div>
       </div>
-
-      <img class="brand-logo" src="/assets/images/streammovies-logo.png" />
-      <a
-        [class.active]="items.path === currentRoute"
-        *ngFor="let items of navItems"
-        href="{{ items.path }}"
-        [style.visibility]="isBurgerMenuMode ? 'hidden' : 'visible'"
-        >{{ items.name }}</a
-      >
+      <div class="burger-menu-dropdown" attr.data-menu-open="{{ isMenuOpen }}">
+        <a
+          [class.active]="items.path === currentRoute"
+          *ngFor="let items of navItems"
+          href="{{ items.path }}"
+          class="burger-menu-link"
+          >{{ items.name }}</a
+        >
+      </div>
     </div>
+
+    <img class="brand-logo" src="/assets/images/streammovies-logo.png" />
+    <div
+      class="horizontal-links"
+      [style.visibility]="isBurgerMenuMode ? 'hidden' : 'visible'"
+    >
+      <div>
+        <a
+          [class.active]="items.path === currentRoute"
+          *ngFor="let items of navItems"
+          href="{{ items.path }}"
+          >{{ items.name }}</a
+        >
+      </div>
+    </div>
+
+    <img
+      class="search-icon"
+      src="https://upload.wikimedia.org/wikipedia/meta/8/86/Search-icon-white.png"
+    />
   </div>
 </nav>
 <div class="nav-placeholder"></div>
