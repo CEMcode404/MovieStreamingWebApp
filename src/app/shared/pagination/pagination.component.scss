@@ -36,11 +36,13 @@ nav {
   }
 
   .arrow-wrapper:first-child {
+    align-self: center;
     background-color: transparent;
     border-radius: 50px 0 0 50px;
   }
 
   .arrow-wrapper:last-child {
+    align-self: center;
     background: transparent;
     border-radius: 0 50px 50px 0;
   }
@@ -70,7 +72,5 @@ nav {
 }
 
 .arrow {
-  position: relative;
-  top: 0.6rem;
   height: 1rem;
 }
