@@ -1,22 +1,27 @@
 [
   {
     "title": "Joker",
-    "imgSrc": "https://i.imgur.com/Mk0uTVI.jpg"
+    "imgSrc": "https://i.imgur.com/Mk0uTVI.jpg",
+    "filters": ["Horror", "Drama"]
   },
   {
     "title": "Wednesday",
-    "imgSrc": "https://i.imgur.com/ePPyfW7.jpg"
+    "imgSrc": "https://i.imgur.com/ePPyfW7.jpg",
+    "filters": ["Comedy", "Crime", "Family"]
   },
   {
     "title": "Inception",
-    "imgSrc": "https://i.imgur.com/NqO7U4c.jpg"
+    "imgSrc": "https://i.imgur.com/NqO7U4c.jpg",
+    "filters": ["Action", "Sci-Fi", "Mystery"]
   },
   {
     "title": "Godzilla: King of the Monsters",
-    "imgSrc": "https://i.imgur.com/zIQ7hFc.jpg"
+    "imgSrc": "https://i.imgur.com/zIQ7hFc.jpg",
+    "filters": ["Action", "Thriller"]
   },
   {
     "title": "Star Wars: The Rise of SkyWalker",
-    "imgSrc": "https://i.imgur.com/S7XdpTD.jpg"
+    "imgSrc": "https://i.imgur.com/S7XdpTD.jpg",
+    "filters": ["Action", "Adventure", "Fantasy"]
   }
 ]

@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { MovieCardComponent } from './movie-card.component';
 import { By } from '@angular/platform-browser';
+import { Movie } from '../../services/movies/movies.service';
 
 describe('MovieCardComponent', () => {
   let component: MovieCardComponent;
@@ -18,7 +19,7 @@ describe('MovieCardComponent', () => {
 
     fixture = TestBed.createComponent(MovieCardComponent);
     component = fixture.componentInstance;
-    component.movieCardData = movie;
+    component.movieCardData = movie as Movie;
     fixture.detectChanges();
   });
 

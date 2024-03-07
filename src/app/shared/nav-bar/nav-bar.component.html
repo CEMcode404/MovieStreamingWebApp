@@ -41,10 +41,36 @@
       </div>
     </div>
 
-    <img
-      class="search-icon"
-      src="https://upload.wikimedia.org/wikipedia/meta/8/86/Search-icon-white.png"
-    />
+    <div class="search-bar-wrapper">
+      <input
+        type="search"
+        [formControl]="inputControl"
+        (blur)="onBlur($event)"
+      />
+      <img
+        class="search-icon"
+        src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Search_Icon.svg"
+      />
+
+      <div
+        class="search-suggestion"
+        [style.visibility]="isSuggestionsHidden ? 'hidden' : 'visible'"
+      >
+        <p *ngIf="searchSuggestions.length < 1" class="not-found">
+          Movie not found.
+        </p>
+        <a
+          href="/movies/random"
+          *ngFor="let suggestion of searchSuggestions"
+          class="movie-suggestion"
+          tabindex="-1"
+          (click)="onSelectMovie()"
+        >
+          <img src="{{ suggestion.imgSrc }}" />
+          <p>{{ suggestion.title }}</p>
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 <div class="nav-placeholder"></div>

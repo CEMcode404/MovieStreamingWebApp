@@ -98,6 +98,7 @@ a:active {
   overflow: hidden;
   padding: 0 1rem;
   position: absolute;
+  z-index: 2;
   left: 0;
   transition: height 0.3s;
 }
@@ -110,7 +111,13 @@ a:active {
   height: 222px;
 }
 
+.not-found {
+  align-self: center;
+  text-align: center;
+}
+
 .navbar {
+  box-shadow: 0px 0px 10px var(--tertiary-color);
   box-sizing: border-box;
   background-color: var(--secondary-color);
   left: 0;
@@ -152,10 +159,86 @@ a:active {
   }
 }
 
-.search-icon {
-  padding: 1rem;
-  height: 1.7rem;
+.search-bar-wrapper {
+  box-sizing: border-box;
+  position: relative;
   margin-left: auto;
+
+  input[type="search"]::-webkit-search-cancel-button {
+    margin: 0 0.5rem 0 1rem;
+  }
+  input[type="search"]::-webkit-search-cancel-button:hover {
+    cursor: pointer;
+  }
+  input[type="search"]::-webkit-search-cancel-button:active {
+    cursor: grabbing;
+  }
+
+  input {
+    padding: 0.3rem;
+    padding-left: 40px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+  }
+}
+
+.search-icon {
+  top: 50%;
+  transform: translate(0, -50%);
+  border-radius: 5px 0 0 5px;
+  box-sizing: border-box;
+  left: 0;
+  position: absolute;
+  padding: 0.4rem;
+  height: 100%;
+}
+
+.search-suggestion {
+  visibility: hidden;
+  box-shadow: 0px 0px 10px var(--tertiary-color);
+  box-sizing: border-box;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 10px;
+  margin-top: 10px;
+  right: 0;
+  left: 0;
+  background-color: white;
+  position: absolute;
+
+  a {
+    color: var(--tertiary-color);
+    box-sizing: border-box;
+    padding: 0.5rem;
+    overflow: hidden;
+    align-items: center;
+    gap: 1rem;
+    display: flex;
+  }
+
+  a:hover {
+    cursor: pointer;
+    background-color: var(--secondary-color-hover);
+    color: var(--primary-color);
+  }
+
+  a:active {
+    cursor: grabbing;
+    background-color: var(--secondary-color-active);
+  }
+
+  img {
+    filter: grayscale(30%);
+    height: 50px;
+  }
+
+  p {
+    max-width: 75%;
+    overflow-wrap: break-word;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -169,5 +252,31 @@ a:active {
 
   .nav-placeholder {
     height: 70px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .nav-items-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .search-icon {
+    height: 55%;
+  }
+
+  .search-bar-wrapper {
+    border-top: solid 1px black;
+    width: 100%;
+    padding: 1rem 0;
+    grid-column: span 3;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .nav-placeholder {
+    height: 145px;
   }
 }
