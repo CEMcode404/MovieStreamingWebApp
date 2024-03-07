@@ -43,6 +43,14 @@ describe('MovieFilterComponent', () => {
 
       expect(filterServiceMock.getFilters).toHaveBeenCalled();
     });
+
+    it('should emit FilterChangeEvent on initializaton', () => {
+      const onFilterChange = spyOn(component.onFilterChange, 'emit');
+
+      component.ngAfterViewInit();
+
+      expect(onFilterChange).toHaveBeenCalled();
+    });
   });
 
   describe('toggleFilterActiveState method', () => {
@@ -52,6 +60,14 @@ describe('MovieFilterComponent', () => {
       });
       filterServiceMock.getInviewFilters.and.returnValue(['Adventure']);
       component.ngOnInit();
+    });
+
+    it('should emit filterChangeEvent', () => {
+      const onFilterChange = spyOn(component.onFilterChange, 'emit');
+
+      component.toggleFilterActiveState('Action');
+
+      expect(onFilterChange).toHaveBeenCalled();
     });
 
     describe('in Inview Filters', () => {

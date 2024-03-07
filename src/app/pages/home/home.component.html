@@ -1,7 +1,7 @@
 <nav-bar></nav-bar>
 <hero></hero>
 
-<movie-filter></movie-filter>
+<movie-filter (onFilterChange)="onFilterChange($event)"></movie-filter>
 <section class="movie-section">
   <movie-card
     *ngFor="let movieData of movies"

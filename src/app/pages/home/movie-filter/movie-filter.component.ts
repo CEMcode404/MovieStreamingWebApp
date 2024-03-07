@@ -7,10 +7,17 @@ import {
   OnDestroy,
   PLATFORM_ID,
   ViewChild,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { FiltersService } from '../../../services/filters/filters.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
+
+export interface FilterChangeEvent {
+  activeFilters: string[];
+  changedFilterName: string;
+}
 
 @Component({
   selector: 'movie-filter',
@@ -21,6 +28,8 @@ import { debounceTime, Subject, takeUntil } from 'rxjs';
 })
 export class MovieFilterComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('movieFilter', { static: false }) myElementRef!: ElementRef;
+  @Output() onFilterChange = new EventEmitter<FilterChangeEvent>();
+
   isFilterMenuHidden = true;
   private _filters = new Filters([]);
   private _destroy$ = new Subject<void>();
@@ -95,6 +104,11 @@ export class MovieFilterComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) this.hideOverflowingInviewFilter();
+
+    this.onFilterChange.emit({
+      activeFilters: this._filters.activeFilters,
+      changedFilterName: '',
+    });
   }
 
   ngOnDestroy(): void {
@@ -104,6 +118,11 @@ export class MovieFilterComponent implements AfterViewInit, OnInit, OnDestroy {
 
   toggleFilterActiveState(filterName: string) {
     this._filters.toggleFilterActiveState(filterName);
+
+    this.onFilterChange.emit({
+      activeFilters: this._filters.activeFilters,
+      changedFilterName: filterName,
+    });
   }
 
   toggleFilterMenu(): void {
