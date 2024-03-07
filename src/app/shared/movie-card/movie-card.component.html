@@ -1,0 +1,11 @@
+<article (window:resize)="onResize()" #movieCard class="movie-card">
+  <img src="{{ movieCardData.imgSrc }}" alt="{{ movieCardData.title }}" />
+  <div class="title">
+    <a [attr.data-blur]="isTitleOverflowing">{{ movieCardData.title }}</a>
+    <span
+      [style.display]="isTitleOverflowing ? 'block' : 'none'"
+      class="title-continuation-dots"
+      >. . .</span
+    >
+  </div>
+</article>

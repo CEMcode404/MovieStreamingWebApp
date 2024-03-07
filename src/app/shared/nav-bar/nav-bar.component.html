@@ -1,0 +1,76 @@
+<nav #nav class="navbar">
+  <div (window:resize)="onResize()" class="nav-items-container">
+    <div
+      class="burger-menu-wrapper"
+      [style.display]="isBurgerMenuMode ? 'block' : 'none'"
+    >
+      <div
+        class="burger-menu-bttn"
+        (click)="toggleMenu()"
+        aria-label="burger-menu-bttn"
+      >
+        <div class="burger-menu">
+          <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+          <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+          <div class="bar" attr.data-menu-open="{{ isMenuOpen }}"></div>
+        </div>
+      </div>
+      <div class="burger-menu-dropdown" attr.data-menu-open="{{ isMenuOpen }}">
+        <a
+          [class.active]="items.path === currentRoute"
+          *ngFor="let items of navItems"
+          href="{{ items.path }}"
+          class="burger-menu-link"
+          >{{ items.name }}</a
+        >
+      </div>
+    </div>
+
+    <img class="brand-logo" src="/assets/images/streammovies-logo.png" />
+    <div
+      class="horizontal-links"
+      [style.visibility]="isBurgerMenuMode ? 'hidden' : 'visible'"
+    >
+      <div>
+        <a
+          [class.active]="items.path === currentRoute"
+          *ngFor="let items of navItems"
+          href="{{ items.path }}"
+          >{{ items.name }}</a
+        >
+      </div>
+    </div>
+
+    <div class="search-bar-wrapper">
+      <input
+        type="search"
+        [formControl]="inputControl"
+        (blur)="onBlur($event)"
+      />
+      <img
+        class="search-icon"
+        src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Search_Icon.svg"
+      />
+
+      <div
+        class="search-suggestion"
+        [style.visibility]="isSuggestionsHidden ? 'hidden' : 'visible'"
+      >
+        <p *ngIf="searchSuggestions.length < 1" class="not-found">
+          Movie not found.
+        </p>
+        <a
+          href="/movies/random"
+          *ngFor="let suggestion of searchSuggestions"
+          class="movie-suggestion"
+          tabindex="-1"
+          (click)="onSelectMovie()"
+        >
+          <img src="{{ suggestion.imgSrc }}" />
+          <p>{{ suggestion.title }}</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="nav-placeholder"></div>
