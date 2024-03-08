@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FiltersService } from '../../../services/filters/filters.service';
 import filters from '../../../../assets/mock-data/movieGenres.json';
 import { By } from '@angular/platform-browser';
+import { LogService } from '../../../services/log/log.service';
 
 describe('MovieFilterComponent', () => {
   let component: MovieFilterComponent;
@@ -34,14 +35,21 @@ describe('MovieFilterComponent', () => {
     });
 
     it('should fetch filters on initialization', () => {
-      filterServiceMock.getFilters.and.callFake((callback) => {
-        callback(filters);
-      });
-
+      filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
       component.ngOnInit();
       fixture.destroy();
 
       expect(filterServiceMock.getFilters).toHaveBeenCalled();
+    });
+
+    it('should handle error thrown while getting filters on initialization', () => {
+      const logServiceError = spyOn(LogService, 'error');
+
+      filterServiceMock.getFilters.and.throwError(new Error());
+      component.ngOnInit();
+      fixture.destroy();
+
+      expect(logServiceError).toHaveBeenCalled();
     });
 
     it('should emit FilterChangeEvent on initializaton', () => {
@@ -55,9 +63,7 @@ describe('MovieFilterComponent', () => {
 
   describe('toggleFilterActiveState method', () => {
     beforeEach(() => {
-      filterServiceMock.getFilters.and.callFake((callback) => {
-        callback(filters);
-      });
+      filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
       filterServiceMock.getInviewFilters.and.returnValue(['Adventure']);
       component.ngOnInit();
     });
@@ -272,9 +278,7 @@ describe('MovieFilterComponent', () => {
   });
 
   it('clearFilterMenu should make all active filter to inactive', waitForAsync(() => {
-    filterServiceMock.getFilters.and.callFake((callback) => {
-      callback(filters);
-    });
+    filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
     filterServiceMock.getDefaultActiveFilters.and.returnValue([
       'Adventure',
       'Action',

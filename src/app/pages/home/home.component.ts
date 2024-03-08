@@ -10,6 +10,7 @@ import {
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { MoviesService, Movie } from '../../services/movies/movies.service';
+import { LogService } from '../../services/log/log.service';
 
 @Component({
   selector: 'app-home',
@@ -32,8 +33,12 @@ export class HomeComponent {
   constructor(private movieService: MoviesService) {}
 
   async onFilterChange(event: FilterChangeEvent) {
-    this.movies = await this.movieService.getMoviesWithFilter(
-      event.activeFilters
-    );
+    try {
+      this.movies = await this.movieService.getMoviesWithFilter(
+        event.activeFilters
+      );
+    } catch (error) {
+      LogService.error(error);
+    }
   }
 }

@@ -13,6 +13,7 @@ import {
 import { FiltersService } from '../../../services/filters/filters.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { LogService } from '../../../services/log/log.service';
 
 export interface FilterChangeEvent {
   activeFilters: string[];
@@ -52,7 +53,7 @@ export class MovieFilterComponent implements AfterViewInit, OnInit, OnDestroy {
     return this._filters.activeFilters.sort();
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this._resize$
       .pipe(debounceTime(200), takeUntil(this._destroy$))
       .subscribe(() => {
@@ -65,14 +66,15 @@ export class MovieFilterComponent implements AfterViewInit, OnInit, OnDestroy {
           this._filters.setFilterHidden(this.filterService.getInviewFilters());
       });
 
-    this.filterService.getFilters((filters) => {
-      this._filters = new Filters(filters);
-
+    try {
+      this._filters = new Filters(await this.filterService.getFilters());
       this._filters.setInviewFilter(this.filterService.getInviewFilters());
       this._filters.toggleFilterActiveState(
         this.filterService.getDefaultActiveFilters()
       );
-    });
+    } catch (error) {
+      LogService.error(error);
+    }
   }
 
   private hideOverflowingInviewFilter() {
