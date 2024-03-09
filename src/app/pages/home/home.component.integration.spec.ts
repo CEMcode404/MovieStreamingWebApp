@@ -92,17 +92,22 @@ describe('HomeComponent', () => {
     });
 
     it('should set/reset totalPages', async () => {
-      const moviesCount = 5;
+      const expectedTotalPages = Math.ceil(
+        movies.length / component.maxMoviesPerPage
+      );
 
       moviesServiceMock.getMoviesCountWithFilter.and.returnValue(
-        Promise.resolve(moviesCount)
+        Promise.resolve(movies.length)
+      );
+      moviesServiceMock.getMoviesWithFilter.and.returnValue(
+        Promise.resolve(movies)
       );
       await component.onFilterChange({
         activeFilters: [],
         changedFilterName: '',
       });
 
-      expect(component.totalPages).toBe(moviesCount);
+      expect(component.totalPages).toBe(expectedTotalPages);
     });
 
     it('should reset currentPage to first page', async () => {

@@ -35,7 +35,7 @@ export class HomeComponent {
   movies: Movie[] = [];
   currentActiveFilters: string[] = [];
   totalPages: number = 0;
-  private maxMoviesPerPage = 12;
+  maxMoviesPerPage = 12;
 
   constructor(private movieService: MoviesService) {}
 
