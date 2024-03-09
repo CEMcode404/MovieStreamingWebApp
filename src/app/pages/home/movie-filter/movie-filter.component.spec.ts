@@ -277,28 +277,38 @@ describe('MovieFilterComponent', () => {
     });
   });
 
-  it('clearFilterMenu should make all active filter to inactive', waitForAsync(() => {
-    filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
-    filterServiceMock.getDefaultActiveFilters.and.returnValue([
-      'Adventure',
-      'Action',
-    ]);
+  describe('clearActiveFilter', () => {
+    it('should make all active filter inactive', waitForAsync(() => {
+      filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
+      filterServiceMock.getDefaultActiveFilters.and.returnValue([
+        'Adventure',
+        'Action',
+      ]);
 
-    component.ngOnInit();
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
+      component.ngOnInit();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        component.clearActiveFilter();
+        fixture.detectChanges();
+
+        const activeFilters = fixture.debugElement.queryAll(
+          By.css('.selected-filter')
+        ).length;
+
+        expect(activeFilters).toBe(0);
+        expect(component.activeFilters.length).toBe(0);
+      });
+    }));
+
+    it('should emit FiterChangeEvent', () => {
+      const onFilterChange = spyOn(component.onFilterChange, 'emit');
 
       component.clearActiveFilter();
-      fixture.detectChanges();
 
-      const activeFilters = fixture.debugElement.queryAll(
-        By.css('.selected-filter')
-      ).length;
-
-      expect(activeFilters).toBe(0);
-      expect(component.activeFilters.length).toBe(0);
+      expect(onFilterChange).toHaveBeenCalled();
     });
-  }));
+  });
 
   it('window resize should trigger onResize ', () => {
     const onResize = spyOn(component, 'onResize');

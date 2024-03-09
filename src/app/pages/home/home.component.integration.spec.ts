@@ -7,6 +7,8 @@ import { By } from '@angular/platform-browser';
 import { MovieFilterComponent } from './movie-filter/movie-filter.component';
 import { LogService } from '../../services/log/log.service';
 import { MoviesService } from '../../services/movies/movies.service';
+import movies from '../../../assets/mock-data/movies.json';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -16,6 +18,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     moviesServiceMock = jasmine.createSpyObj('MoviesService', [
       'getMoviesWithFilter',
+      'getMoviesCountWithFilter',
     ]);
 
     await TestBed.configureTestingModule({
@@ -38,26 +41,118 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call onFilterChange on filter click', () => {
-    const movieFilterComponent = fixture.debugElement.query(
-      By.directive(MovieFilterComponent)
-    ).componentInstance;
-    const onFilterChange = spyOn(component, 'onFilterChange');
+  describe('onFilterChange method', () => {
+    it('should be called FilterChangeEvent emission', () => {
+      const movieFilterComponent = fixture.debugElement.query(
+        By.directive(MovieFilterComponent)
+      ).componentInstance;
+      const onFilterChange = spyOn(component, 'onFilterChange');
 
-    movieFilterComponent.onFilterChange.emit();
+      movieFilterComponent.onFilterChange.emit();
 
-    expect(onFilterChange).toHaveBeenCalled();
+      expect(onFilterChange).toHaveBeenCalled();
+    });
+
+    it('should handle error if failed to get movies', async () => {
+      const logServiceError = spyOn(LogService, 'error');
+
+      moviesServiceMock.getMoviesWithFilter.and.throwError(new Error());
+      await component.onFilterChange({
+        activeFilters: [],
+        changedFilterName: '',
+      });
+
+      expect(logServiceError).toHaveBeenCalled();
+    });
+
+    it('should set movies', async () => {
+      const moviesDataSample = movies.slice(0, 1);
+
+      moviesServiceMock.getMoviesWithFilter.and.returnValue(
+        Promise.resolve(moviesDataSample)
+      );
+      await component.onFilterChange({
+        activeFilters: [],
+        changedFilterName: '',
+      });
+
+      expect(moviesDataSample[0].title).toMatch(component.movies[0].title);
+    });
+
+    it('should handle error if failed to get movies count', async () => {
+      const logServiceError = spyOn(LogService, 'error');
+
+      moviesServiceMock.getMoviesCountWithFilter.and.throwError(new Error());
+      await component.onFilterChange({
+        activeFilters: [],
+        changedFilterName: '',
+      });
+
+      expect(logServiceError).toHaveBeenCalled();
+    });
+
+    it('should set/reset totalPages', async () => {
+      const moviesCount = 5;
+
+      moviesServiceMock.getMoviesCountWithFilter.and.returnValue(
+        Promise.resolve(moviesCount)
+      );
+      await component.onFilterChange({
+        activeFilters: [],
+        changedFilterName: '',
+      });
+
+      expect(component.totalPages).toBe(moviesCount);
+    });
+
+    it('should reset currentPage to first page', async () => {
+      await component.onFilterChange({
+        activeFilters: [],
+        changedFilterName: '',
+      });
+
+      expect(component.currentPage).toBe(1);
+    });
   });
 
-  it('should handle error if onFilterChange failed to get movies', () => {
-    const logServiceError = spyOn(LogService, 'error');
+  describe('onPageChange method', () => {
+    const pageNumber = 3;
 
-    moviesServiceMock.getMoviesWithFilter.and.throwError(new Error());
-    const movieFilterComponent = fixture.debugElement.query(
-      By.directive(MovieFilterComponent)
-    ).componentInstance;
-    movieFilterComponent.onFilterChange.emit();
+    it('should be called PageChangeEvent emission', () => {
+      const paginationComponent = fixture.debugElement.query(
+        By.directive(PaginationComponent)
+      ).componentInstance;
+      const onPageChange = spyOn(component, 'onPageChange');
 
-    expect(logServiceError).toHaveBeenCalled();
+      paginationComponent.onPageChange.emit();
+
+      expect(onPageChange).toHaveBeenCalled();
+    });
+
+    it('should handle error if failed to get movies', async () => {
+      const logServiceError = spyOn(LogService, 'error');
+
+      moviesServiceMock.getMoviesWithFilter.and.throwError(new Error());
+      await component.onPageChange(pageNumber);
+
+      expect(logServiceError).toHaveBeenCalled();
+    });
+
+    it('should set movies', async () => {
+      const moviesDataSample = movies.slice(0, 1);
+
+      moviesServiceMock.getMoviesWithFilter.and.returnValue(
+        Promise.resolve(moviesDataSample)
+      );
+      await component.onPageChange(pageNumber);
+
+      expect(moviesDataSample[0].title).toMatch(component.movies[0].title);
+    });
+
+    it('should set the currentPage', async () => {
+      await component.onPageChange(pageNumber);
+
+      expect(component.currentPage).toBe(pageNumber);
+    });
   });
 });

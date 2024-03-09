@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginationComponent } from './pagination.component';
 import { By } from '@angular/platform-browser';
+import { LogService } from '../../services/log/log.service';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
@@ -20,6 +21,16 @@ describe('PaginationComponent', () => {
   describe('Initialiation', () => {
     it('should create', () => {
       expect(component).toBeTruthy();
+    });
+
+    it('should handle error if pagination fails', () => {
+      const logServiceError = spyOn(LogService, 'error');
+      spyOn(component, 'paginate').and.throwError(
+        new Error('Failed to paginate.')
+      );
+      component.ngOnInit();
+
+      expect(logServiceError).toHaveBeenCalled();
     });
 
     it('should define currentPage to defaultCurrentPage', () => {
@@ -58,6 +69,45 @@ describe('PaginationComponent', () => {
         'setEqualWidthsBasedOnMaxPageNumberWidth'
       );
       component.ngAfterViewInit();
+
+      expect(setEqualWidthsBasedOnMaxPageNumberWidth).toHaveBeenCalled();
+    });
+  });
+
+  describe('Input changes', () => {
+    it('should handle error if repagination fails', () => {
+      const logServiceError = spyOn(LogService, 'error');
+      spyOn(component, 'paginate').and.throwError(
+        new Error('Failed to paginate.')
+      );
+      component.ngOnChanges({});
+
+      expect(logServiceError).toHaveBeenCalled();
+    });
+
+    it('should handle error if repagination fails', () => {
+      const logServiceError = spyOn(LogService, 'error');
+      spyOn(component, 'paginate').and.throwError(
+        new Error('Failed to paginate.')
+      );
+      component.ngOnChanges({});
+
+      expect(logServiceError).toHaveBeenCalled();
+    });
+
+    it('should reset pageNumbers', () => {
+      component.ngOnChanges({});
+
+      expect(component.pageNumbers.length).toBeDefined;
+      expect(Array.isArray(component.pageNumbers)).toBeTruthy();
+    });
+
+    it('should call the setEqualWidthsBasedOnMaxPageNumberWidth', () => {
+      const setEqualWidthsBasedOnMaxPageNumberWidth = spyOn(
+        component,
+        'setEqualWidthsBasedOnMaxPageNumberWidth'
+      );
+      component.ngOnChanges({});
 
       expect(setEqualWidthsBasedOnMaxPageNumberWidth).toHaveBeenCalled();
     });
@@ -121,12 +171,11 @@ describe('PaginationComponent', () => {
       expect(component.currentPage).toBe(component.pageNumbers[2]);
     });
 
-    describe('onPageChange', () => {
+    describe('onPageChange event', () => {
       let onPageChange: jasmine.Spy;
 
       beforeEach(() => {
-        component.onPageChange = () => {};
-        onPageChange = spyOn(component, 'onPageChange');
+        onPageChange = spyOn(component.onPageChange, 'emit');
       });
 
       it('should be called by gotoPreviousPage if it is defined', () => {

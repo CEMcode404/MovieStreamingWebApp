@@ -8,5 +8,9 @@
     [movieCardData]="movieData"
   ></movie-card>
 </section>
-<pagination></pagination>
+<pagination
+  [currentPage]="currentPage"
+  (onPageChange)="onPageChange($event)"
+  [totalPages]="totalPages"
+></pagination>
 <app-footer></app-footer>

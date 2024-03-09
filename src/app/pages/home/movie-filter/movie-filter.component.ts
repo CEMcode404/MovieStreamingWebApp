@@ -133,6 +133,11 @@ export class MovieFilterComponent implements AfterViewInit, OnInit, OnDestroy {
 
   clearActiveFilter(): void {
     this._filters.clearActiveFilters();
+
+    this.onFilterChange.emit({
+      activeFilters: this._filters.activeFilters,
+      changedFilterName: '',
+    });
   }
 
   onResize() {

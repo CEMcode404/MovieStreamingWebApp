@@ -7,11 +7,14 @@ import {
   Input,
   OnInit,
   ViewChild,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { LogService } from '../../services/log/log.service';
 
-type PageNo = number;
-type PageNumberChange = (pageNo: PageNo) => void | undefined;
+export type PageNo = number;
 
 @Component({
   selector: 'pagination',
@@ -20,12 +23,13 @@ type PageNumberChange = (pageNo: PageNo) => void | undefined;
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
 })
-export class PaginationComponent implements AfterViewInit, OnInit {
+export class PaginationComponent implements AfterViewInit, OnInit, OnChanges {
   @ViewChild('pagination', { static: false }) myElementRef!: ElementRef;
   @Input() totalPages: number = 100;
+  @Input() currentPage: number = 1;
   @Input() noOfPagesVisible: number = 5;
-  @Input() onPageChange!: PageNumberChange;
-  currentPage = 1;
+  @Output() onPageChange = new EventEmitter<PageNo>();
+
   pageNumbers!: PageNo[];
   pageNumberWidth!: string;
 
@@ -46,21 +50,36 @@ export class PaginationComponent implements AfterViewInit, OnInit {
     this.setEqualWidthsBasedOnMaxPageNumberWidth();
   }
 
-  setEqualWidthsBasedOnMaxPageNumberWidth(): void {
-    const pageNumbers =
-      this.myElementRef.nativeElement.querySelectorAll('.page-number');
-    let currentBiggestWidth;
-
-    for (let pageNumber of pageNumbers) {
-      if (!currentBiggestWidth) currentBiggestWidth = pageNumber.scrolltWidth;
-      else if (currentBiggestWidth < pageNumber.scrolltWidth)
-        currentBiggestWidth = pageNumber.scrollWidth;
+  ngOnChanges(changes: SimpleChanges): void {
+    try {
+      this.pageNumbers = this.paginate(
+        this.currentPage,
+        this.totalPages,
+        this.noOfPagesVisible
+      );
+      this.setEqualWidthsBasedOnMaxPageNumberWidth();
+    } catch (error) {
+      LogService.error(error);
     }
+  }
 
-    for (let pageNumber of pageNumbers)
-      this.pageNumberWidth = `${pageNumber.scrollWidth}px`;
+  setEqualWidthsBasedOnMaxPageNumberWidth(): void {
+    const isPaginationRendered = this.myElementRef?.nativeElement;
 
-    this.changeDetector.detectChanges();
+    if (isPaginationRendered) {
+      this.pageNumberWidth = 'auto';
+      this.changeDetector.detectChanges();
+
+      const pageNumbers = isPaginationRendered.querySelectorAll('.page-number');
+      let currentBiggestWidth = 0;
+
+      for (let pageNumber of pageNumbers) {
+        if (currentBiggestWidth < pageNumber.scrollWidth)
+          currentBiggestWidth = pageNumber.scrollWidth;
+      }
+      this.pageNumberWidth = `${currentBiggestWidth}px`;
+      this.changeDetector.detectChanges();
+    }
   }
 
   gotoNextPage(): void {
@@ -76,7 +95,7 @@ export class PaginationComponent implements AfterViewInit, OnInit {
         this.noOfPagesVisible
       );
 
-      if (this.onPageChange) this.onPageChange(nextPage);
+      if (this.onPageChange) this.onPageChange.emit(nextPage);
     }
   }
 
@@ -97,7 +116,7 @@ export class PaginationComponent implements AfterViewInit, OnInit {
         this.noOfPagesVisible
       );
 
-      if (this.onPageChange) this.onPageChange(previousPage);
+      if (this.onPageChange) this.onPageChange.emit(previousPage);
     }
   }
 
@@ -109,7 +128,7 @@ export class PaginationComponent implements AfterViewInit, OnInit {
       this.noOfPagesVisible
     );
 
-    if (this.onPageChange) this.onPageChange(pageNo);
+    if (this.onPageChange) this.onPageChange.emit(pageNo);
   }
 
   paginate(
