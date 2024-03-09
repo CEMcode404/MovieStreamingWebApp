@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FiltersService } from '../../../services/filters/filters.service';
 import filters from '../../../../assets/mock-data/movieGenres.json';
 import { By } from '@angular/platform-browser';
+import { LogService } from '../../../services/log/log.service';
 
 describe('MovieFilterComponent', () => {
   let component: MovieFilterComponent;
@@ -34,24 +35,45 @@ describe('MovieFilterComponent', () => {
     });
 
     it('should fetch filters on initialization', () => {
-      filterServiceMock.getFilters.and.callFake((callback) => {
-        callback(filters);
-      });
-
+      filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
       component.ngOnInit();
       fixture.destroy();
 
       expect(filterServiceMock.getFilters).toHaveBeenCalled();
     });
+
+    it('should handle error thrown while getting filters on initialization', () => {
+      const logServiceError = spyOn(LogService, 'error');
+
+      filterServiceMock.getFilters.and.throwError(new Error());
+      component.ngOnInit();
+      fixture.destroy();
+
+      expect(logServiceError).toHaveBeenCalled();
+    });
+
+    it('should emit FilterChangeEvent on initializaton', () => {
+      const onFilterChange = spyOn(component.onFilterChange, 'emit');
+
+      component.ngAfterViewInit();
+
+      expect(onFilterChange).toHaveBeenCalled();
+    });
   });
 
   describe('toggleFilterActiveState method', () => {
     beforeEach(() => {
-      filterServiceMock.getFilters.and.callFake((callback) => {
-        callback(filters);
-      });
+      filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
       filterServiceMock.getInviewFilters.and.returnValue(['Adventure']);
       component.ngOnInit();
+    });
+
+    it('should emit filterChangeEvent', () => {
+      const onFilterChange = spyOn(component.onFilterChange, 'emit');
+
+      component.toggleFilterActiveState('Action');
+
+      expect(onFilterChange).toHaveBeenCalled();
     });
 
     describe('in Inview Filters', () => {
@@ -255,30 +277,38 @@ describe('MovieFilterComponent', () => {
     });
   });
 
-  it('clearFilterMenu should make all active filter to inactive', waitForAsync(() => {
-    filterServiceMock.getFilters.and.callFake((callback) => {
-      callback(filters);
-    });
-    filterServiceMock.getDefaultActiveFilters.and.returnValue([
-      'Adventure',
-      'Action',
-    ]);
+  describe('clearActiveFilter', () => {
+    it('should make all active filter inactive', waitForAsync(() => {
+      filterServiceMock.getFilters.and.returnValue(Promise.resolve(filters));
+      filterServiceMock.getDefaultActiveFilters.and.returnValue([
+        'Adventure',
+        'Action',
+      ]);
 
-    component.ngOnInit();
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
+      component.ngOnInit();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        component.clearActiveFilter();
+        fixture.detectChanges();
+
+        const activeFilters = fixture.debugElement.queryAll(
+          By.css('.selected-filter')
+        ).length;
+
+        expect(activeFilters).toBe(0);
+        expect(component.activeFilters.length).toBe(0);
+      });
+    }));
+
+    it('should emit FiterChangeEvent', () => {
+      const onFilterChange = spyOn(component.onFilterChange, 'emit');
 
       component.clearActiveFilter();
-      fixture.detectChanges();
 
-      const activeFilters = fixture.debugElement.queryAll(
-        By.css('.selected-filter')
-      ).length;
-
-      expect(activeFilters).toBe(0);
-      expect(component.activeFilters.length).toBe(0);
+      expect(onFilterChange).toHaveBeenCalled();
     });
-  }));
+  });
 
   it('window resize should trigger onResize ', () => {
     const onResize = spyOn(component, 'onResize');

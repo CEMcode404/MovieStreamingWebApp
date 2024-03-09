@@ -1,12 +1,16 @@
 <nav-bar></nav-bar>
 <hero></hero>
 
-<movie-filter></movie-filter>
+<movie-filter (onFilterChange)="onFilterChange($event)"></movie-filter>
 <section class="movie-section">
   <movie-card
     *ngFor="let movieData of movies"
     [movieCardData]="movieData"
   ></movie-card>
 </section>
-<pagination></pagination>
+<pagination
+  [currentPage]="currentPage"
+  (onPageChange)="onPageChange($event)"
+  [totalPages]="totalPages"
+></pagination>
 <app-footer></app-footer>

@@ -10,6 +10,7 @@ import { HeroComponent } from './hero.component';
 import { HeroesService } from '../../../services/heroes/heroes.service';
 import heroes from '../../../../assets/mock-data/heroes.json';
 import { By } from '@angular/platform-browser';
+import { LogService } from '../../../services/log/log.service';
 
 describe('HeroComponent', () => {
   let component: HeroComponent;
@@ -34,13 +35,20 @@ describe('HeroComponent', () => {
   });
 
   it('should fetch data on component initialization', () => {
-    heroesServiceMock.getHeroes.and.callFake((callback) => {
-      callback(heroes);
-    });
+    heroesServiceMock.getHeroes.and.returnValue(Promise.resolve(heroes));
 
     component.ngOnInit();
 
     expect(heroesServiceMock.getHeroes).toHaveBeenCalled();
+  });
+
+  it('should handle thrown error if fetchng heroes fail on component initialization', () => {
+    const logServiceError = spyOn(LogService, 'error');
+
+    heroesServiceMock.getHeroes.and.throwError(new Error());
+    component.ngOnInit();
+
+    expect(logServiceError).toHaveBeenCalled();
   });
 
   describe('Hero Rotation Functionality', () => {
@@ -110,10 +118,7 @@ describe('HeroComponent', () => {
     });
 
     it('should start on component initialization', () => {
-      heroesServiceMock.getHeroes.and.callFake((callback) => {
-        callback(heroes);
-      });
-
+      heroesServiceMock.getHeroes.and.returnValue(Promise.resolve(heroes));
       component.ngOnInit();
 
       expect(startHeroRotation).toHaveBeenCalled();

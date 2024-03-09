@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs';
+import { firstValueFrom, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,16 @@ export class FiltersService {
   private readonly dataURL = 'assets/mock-data/movieGenres.json';
   constructor(private http: HttpClient) {}
 
-  getFilters(cb: (filters: string[]) => void): void {
-    this.http.get<string[]>(this.dataURL).pipe(take(1)).subscribe(cb);
+  async getFilters(): Promise<string[]> {
+    return await firstValueFrom(
+      this.http
+        .get<string[]>(this.dataURL)
+        .pipe(
+          catchError(() =>
+            throwError(() => new Error('Failed to get filters.'))
+          )
+        )
+    );
   }
 
   getDefaultActiveFilters(): string[] {

@@ -37,6 +37,11 @@ export class MoviesService {
     else throw Error('Invalid argument/s');
   }
 
+  async getMoviesCountWithTitle(movieTitle: string): Promise<number> {
+    return (await this.getMoviesWithTitle(movieTitle, { limit: Infinity }))
+      .length;
+  }
+
   async getMoviesWithFilter(filters: string[]): Promise<Movie[]>;
   async getMoviesWithFilter(
     filters: string[],
@@ -48,6 +53,11 @@ export class MoviesService {
     else if (Array.isArray(filters) && typeof options === 'undefined')
       return await this.getMovies({ filters });
     else throw Error('Invalid argument');
+  }
+
+  async getMoviesCountWithFilter(filters: string[]): Promise<number> {
+    return (await this.getMoviesWithFilter(filters, { limit: Infinity }))
+      .length;
   }
 
   async getMovies(): Promise<Movie[]>;
@@ -91,13 +101,17 @@ export class MoviesService {
     return await firstValueFrom(
       this.http.get<Movie[]>(this.dataURL).pipe(
         map((movies) => {
+          const limit =
+            Math.abs(processedOptions.limit as number) +
+            Math.abs(processedOptions.offset as number);
+
           return this.filterMoviesBy(match, movies).slice(
             Math.abs(processedOptions.offset as number),
-            Math.abs(processedOptions.limit as number)
+            limit
           );
         }),
         catchError((err) => {
-          return throwError(() => new Error('Failed to get movies'));
+          return throwError(() => new Error('Failed to get movies', err));
         })
       )
     );

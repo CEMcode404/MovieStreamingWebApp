@@ -22,13 +22,25 @@ describe('MoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch heroes from the server', () => {
-    service.getHeroes((response) => {
-      expect(response).toEqual(heroes);
-    });
+  it('should fetch heroes from the server', async () => {
+    const response = service.getHeroes();
 
-    const req = httpMock.expectOne('assets/mock-data/heroes.json');
-    expect(req.request.method).toBe('GET');
-    req.flush(heroes);
+    httpMock.expectOne('assets/mock-data/heroes.json').flush(heroes);
+
+    expect(await response).toEqual(heroes);
+  });
+
+  it('should throw error if failed to fetch heroes', async () => {
+    const response = service.getHeroes();
+
+    httpMock
+      .expectOne('assets/mock-data/heroes.json')
+      .flush(null, { status: 404, statusText: 'Failed to get heroes.' });
+
+    try {
+      await response;
+    } catch (error) {
+      expect((error as Error).message).toMatch('Failed');
+    }
   });
 });

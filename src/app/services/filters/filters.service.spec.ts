@@ -22,14 +22,26 @@ describe('FiltersService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('getFilters should fetch filters from the server', () => {
-    service.getFilters((response) => {
-      expect(response).toEqual(filters);
-    });
+  it('getFilters should fetch filters from the server', async () => {
+    const response = service.getFilters();
 
-    const req = httpMock.expectOne('assets/mock-data/movieGenres.json');
-    expect(req.request.method).toBe('GET');
-    req.flush(filters);
+    httpMock.expectOne('assets/mock-data/movieGenres.json').flush(filters);
+
+    expect(await response).toEqual(filters);
+  });
+
+  it('getFilters should throw error if fetching filters failed', async () => {
+    const response = service.getFilters();
+
+    httpMock
+      .expectOne('assets/mock-data/movieGenres.json')
+      .flush(null, { status: 404, statusText: 'Failed to get filters.' });
+
+    try {
+      await response;
+    } catch (error) {
+      expect((error as Error).message).toMatch('Failed');
+    }
   });
 
   it('getDefaultActiveFilters should return an array of strings', () => {

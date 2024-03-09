@@ -9,6 +9,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Hero, HeroesService } from '../../../services/heroes/heroes.service';
 import { Subscription, interval } from 'rxjs';
+import { LogService } from '../../../services/log/log.service';
 
 @Component({
   selector: 'hero',
@@ -28,11 +29,14 @@ export class HeroComponent implements OnInit, OnDestroy {
     private zone: NgZone
   ) {}
 
-  ngOnInit(): void {
-    this.heroesService.getHeroes((hero) => {
-      this.heroes = hero;
-      this.startHeroRotation(5000);
-    });
+  async ngOnInit(): Promise<void> {
+    this.startHeroRotation(5000);
+
+    try {
+      this.heroes = await this.heroesService.getHeroes();
+    } catch (error) {
+      LogService.error(error);
+    }
   }
 
   ngOnDestroy(): void {

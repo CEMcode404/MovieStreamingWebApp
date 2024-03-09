@@ -117,7 +117,7 @@
 
 .filter-menu-bttn[data-isHidden="false"] {
   .triangle {
-    transform: rotateX(180deg);
+    transform: rotateX(0deg);
   }
 }
 
@@ -184,9 +184,10 @@
 }
 
 .triangle {
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid var(--primary-color);
+  transform: rotateX(180deg);
+  border-left: 0.6rem solid transparent;
+  border-right: 0.6rem solid transparent;
+  border-bottom: 0.6rem solid var(--primary-color);
   height: 0;
   transition: transform 200ms;
   width: 0;
