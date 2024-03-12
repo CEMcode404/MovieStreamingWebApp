@@ -41,6 +41,8 @@ export class HomeComponent {
 
   async onFilterChange(event: FilterChangeEvent) {
     try {
+      this.currentPage = 1;
+
       this.totalPages = Math.ceil(
         (await this.movieService.getMoviesCountWithFilter(
           event.activeFilters
@@ -52,7 +54,6 @@ export class HomeComponent {
       );
 
       this.currentActiveFilters = event.activeFilters;
-      this.currentPage = 1;
     } catch (error) {
       LogService.error(error);
     }
