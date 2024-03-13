@@ -43,6 +43,7 @@
 
     <div class="search-bar-wrapper">
       <input
+        (keydown.enter)="gotoSearchResults()"
         type="search"
         [formControl]="inputControl"
         (blur)="onBlur($event)"
@@ -60,7 +61,6 @@
           Movie not found.
         </p>
         <a
-          href="/movies/random"
           *ngFor="let suggestion of searchSuggestions"
           class="movie-suggestion"
           tabindex="-1"

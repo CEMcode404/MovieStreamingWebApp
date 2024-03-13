@@ -1,0 +1,35 @@
+main {
+  margin: auto 1rem;
+  min-height: 70vh;
+}
+
+.pre-h1 {
+  color: var(--primary-color);
+  margin: 1rem 1rem 0 1rem;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.movie-section {
+  margin: 3rem 1rem 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media screen and (max-width: 800px) {
+  .movie-section {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movie-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

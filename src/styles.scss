@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+//images for movies dimension are 700 x 1050 or 1/1.5
+
 :root {
   --primary-color: white;
   --secondary-color: #9b1c31;
@@ -7,6 +9,18 @@
   --tertiary-color: black;
   --box-shadow: gray;
   --background-color: rgb(26, 26, 26);
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.1rem;
+  kerning: auto;
+  line-height: 2rem;
+  margin-bottom: 1rem;
 }
 
 h2 {

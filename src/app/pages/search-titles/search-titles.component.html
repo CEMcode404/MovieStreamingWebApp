@@ -1,0 +1,19 @@
+<nav-bar></nav-bar>
+<main>
+  <p class="pre-h1">Results for</p>
+  <h1>
+    {{ searchTitle }}
+  </h1>
+  <section class="movie-section">
+    <movie-card
+      *ngFor="let movieData of movieData"
+      [movieCardData]="movieData"
+    ></movie-card>
+  </section>
+  <pagination
+    [currentPage]="currentPage"
+    (onPageChange)="onPageChange($event)"
+    [totalPages]="totalPages"
+  ></pagination>
+</main>
+<app-footer class="footer"></app-footer>
