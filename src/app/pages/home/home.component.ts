@@ -65,7 +65,7 @@ export class HomeComponent {
         this.currentActiveFilters,
         {
           limit: this.maxMoviesPerPage,
-          offset: pageNumber - 1,
+          offset: (pageNumber - 1) * this.maxMoviesPerPage,
         }
       );
 

@@ -201,26 +201,24 @@ describe('MoviesService', () => {
 
         httpMock.expectOne(moviesDataFilePath).flush(movies);
 
-        expect((await response).length).toBeLessThanOrEqual(
-          defaultLimit - offset
-        );
+        expect((await response).length).toBeLessThanOrEqual(defaultLimit);
       });
 
       it('should return number of movies less than or equal the limit minus offset if both field is filled', async () => {
         const limit = 10;
         const offset = 3;
-        const response = service.getMovies({ offset });
+        const response = service.getMovies({ offset, limit });
 
         httpMock.expectOne(moviesDataFilePath).flush(movies);
 
-        expect((await response).length).toBeLessThanOrEqual(limit - offset);
+        expect((await response).length).toBeLessThanOrEqual(limit);
       });
 
       it('should apply absolute property to input to fix negative number input and have the same results as if the input is positive', async () => {
         const limit = -10;
         const offset = -3;
-        const toBeExectedNumberOfMovies = Math.abs(limit) - Math.abs(offset);
-        const response = service.getMovies({ offset });
+        const toBeExectedNumberOfMovies = Math.abs(limit);
+        const response = service.getMovies({ offset, limit });
 
         httpMock.expectOne(moviesDataFilePath).flush(movies);
 

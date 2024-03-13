@@ -75,7 +75,7 @@ export class SearchTitlesComponent implements OnInit, OnDestroy {
         this.searchTitle as string,
         {
           limit: this.maxMoviesPerPage,
-          offset: pageNumber - 1,
+          offset: (pageNumber - 1) * this.maxMoviesPerPage,
         }
       );
 
