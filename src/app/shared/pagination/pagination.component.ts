@@ -64,12 +64,11 @@ export class PaginationComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   setEqualWidthsBasedOnMaxPageNumberWidth(): void {
+    this.pageNumberWidth = 'auto';
+    this.changeDetector.detectChanges();
     const isPaginationRendered = this.myElementRef?.nativeElement;
 
     if (isPaginationRendered) {
-      this.pageNumberWidth = 'auto';
-      this.changeDetector.detectChanges();
-
       const pageNumbers = isPaginationRendered.querySelectorAll('.page-number');
       let currentBiggestWidth = 0;
 

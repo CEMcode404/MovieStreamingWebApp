@@ -211,7 +211,7 @@ describe('PaginationComponent', () => {
     });
 
     it('should not be visible if there is only a single page', () => {
-      component.pageNumbers = [1];
+      component.totalPages = 1;
       fixture.detectChanges();
 
       const paginationComponent = fixture.debugElement.query(
@@ -222,7 +222,7 @@ describe('PaginationComponent', () => {
     });
 
     it('should be visible if pages is more than one', () => {
-      component.pageNumbers = [1, 2];
+      component.totalPages = 2;
       fixture.detectChanges();
 
       const paginationComponent = fixture.debugElement.query(
