@@ -23,5 +23,95 @@
     "title": "Star Wars: The Rise of SkyWalker",
     "imgSrc": "https://i.imgur.com/S7XdpTD.jpg",
     "filters": ["Action", "Adventure", "Fantasy", "Popular"]
+  },
+  {
+    "title": "Warcraft",
+    "imgSrc": "https://i.imgur.com/a6tStqI.jpg",
+    "filters": ["Action", "Adventure", "Fantasy", "Popular"]
+  },
+  {
+    "title": "Watchmen",
+    "imgSrc": "https://i.imgur.com/9tvLY6w.jpg",
+    "filters": ["Action", "Mystery", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "The Matrix:Resurrections",
+    "imgSrc": "https://i.imgur.com/5yYQmhv.jpg",
+    "filters": ["Action", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "The Hobbit: An Unexpected Journey",
+    "imgSrc": "https://i.imgur.com/OoMD4yy.jpg",
+    "filters": ["Adventure", "Fantasy", "Popular"]
+  },
+  {
+    "title": "Thor",
+    "imgSrc": "https://i.imgur.com/5xPnJhl.jpg",
+    "filters": ["Action", "Adventure", "Drama", "Fantasy", "Popular"]
+  },
+  {
+    "title": "Suicide Squad",
+    "imgSrc": "https://i.imgur.com/pPSyFsy.jpg",
+    "filters": ["Action", "Adventure", "Comedy", "Popular"]
+  },
+  {
+    "title": "The Angry Birds Movie",
+    "imgSrc": "https://i.imgur.com/csphgLR.jpg",
+    "filters": ["Action", "Comedy", "Animation", "Popular"]
+  },
+  {
+    "title": "The Lord Of The Rings:The Return Of The King",
+    "imgSrc": "https://i.imgur.com/20yAoff.jpg",
+    "filters": ["Action", "Adventure", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "Mad Max:Fury Road",
+    "imgSrc": "https://i.imgur.com/uOifH6s.jpg",
+    "filters": ["Action", "Adventure", "Drama", "War", "Popular"]
+  },
+  {
+    "title": "Iron Man",
+    "imgSrc": "https://i.imgur.com/M0dtrWa.jpg",
+    "filters": ["Action", "Adventure", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "Jurassic Park",
+    "imgSrc": "https://i.imgur.com/yOf88th.jpg",
+    "filters": ["Adventure", "Sci-Fi", "Thriller", "Popular"]
+  },
+  {
+    "title": "Predators",
+    "imgSrc": "https://i.imgur.com/P9nd2mc.jpg",
+    "filters": ["Action", "Adventure", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "Godzilla vs Kong",
+    "imgSrc": "https://i.imgur.com/svXtwAD.jpg",
+    "filters": ["Action", "Sci-Fi", "Thriller", "Popular"]
+  },
+  {
+    "title": "Aquaman And The Lost Kingdom",
+    "imgSrc": "https://i.imgur.com/ydQwdcQ.jpg",
+    "filters": ["Action", "Adventure", "Fantasy", "Popular"]
+  },
+  {
+    "title": "Dune",
+    "imgSrc": "https://i.imgur.com/4R6Ntil.jpg",
+    "filters": ["Action", "Adventure", "Drama", "Popular"]
+  },
+  {
+    "title": "Black Widow",
+    "imgSrc": "https://i.imgur.com/VUpdJOa.jpg",
+    "filters": ["Action", "Adventure", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "Alien",
+    "imgSrc": "https://i.imgur.com/wbuJsA4.jpg",
+    "filters": ["Action", "Adventure", "Sci-Fi", "Popular"]
+  },
+  {
+    "title": "Captain America:The First Avenger",
+    "imgSrc": "https://i.imgur.com/9uz9TVm.jpg",
+    "filters": ["Action", "Adventure", "Sci-Fi", "Thriller", "Popular"]
   }
 ]

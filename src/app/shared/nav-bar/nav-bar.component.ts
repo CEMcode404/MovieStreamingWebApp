@@ -134,4 +134,12 @@ export class NavBarComponent implements AfterViewInit, OnInit, OnDestroy {
   onSelectMovie() {
     this.isSuggestionsHidden = true;
   }
+
+  gotoSearchResults() {
+    this.router.navigate(['/search-titles'], {
+      queryParams: {
+        searchTitle: this.inputControl.value?.trim() as string,
+      },
+    });
+  }
 }

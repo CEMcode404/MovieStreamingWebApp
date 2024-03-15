@@ -1,8 +1,4 @@
-<div
-  #pagination
-  class="pagination"
-  *ngIf="pageNumbers && pageNumbers.length > 1"
->
+<div #pagination class="pagination" *ngIf="totalPages > 1">
   <nav>
     <span class="arrow-wrapper" (click)="gotoPreviousPage()"
       ><img class="arrow" src="/assets/images/chevron-left-solid.svg"

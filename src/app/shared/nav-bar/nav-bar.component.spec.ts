@@ -300,5 +300,16 @@ describe('NavBarComponent', () => {
 
       expect(getSearchSuggestionsVisibility()).toMatch('visible');
     }));
+
+    it('should call gotoSearchResults on keydown enter', fakeAsync(() => {
+      const gotoSerachResults = spyOn(component, 'gotoSearchResults');
+      const inputElement = fixture.debugElement.query(By.css('input'));
+      const keyDownEnterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+
+      inputElement.triggerEventHandler('keydown.enter', keyDownEnterEvent);
+      fixture.detectChanges();
+
+      expect(gotoSerachResults).toHaveBeenCalled();
+    }));
   });
 });
