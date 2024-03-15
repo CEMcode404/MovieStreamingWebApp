@@ -1,4 +1,9 @@
-<article (window:resize)="onResize()" #movieCard class="movie-card">
+<article
+  (window:resize)="onResize()"
+  #movieCard
+  class="movie-card"
+  title="{{ movieCardData.title }}"
+>
   <img src="{{ movieCardData.imgSrc }}" alt="{{ movieCardData.title }}" />
   <div class="title">
     <a [attr.data-blur]="isTitleOverflowing">{{ movieCardData.title }}</a>
