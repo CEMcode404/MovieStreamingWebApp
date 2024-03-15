@@ -1,4 +1,5 @@
 main {
+  position: relative;
   margin: auto 1rem;
   min-height: 70vh;
 }
@@ -20,6 +21,18 @@ h1 {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.not-found {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  background-color: var(--tertiary-color);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
 }
 
 @media screen and (max-width: 800px) {

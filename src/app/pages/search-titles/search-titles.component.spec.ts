@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { SearchTitlesComponent } from './search-titles.component';
 import { ActivatedRoute } from '@angular/router';
@@ -165,6 +170,29 @@ describe('SearchTitlesComponent', () => {
     it('should set the currentPage', async () => {
       await component.onPageChange(pageNumber);
       expect(component.currentPage).toBe(pageNumber);
+    });
+  });
+
+  describe('no movie found notice', () => {
+    it('should render if movies is less than one', () => {
+      component.movieData = [];
+      fixture.detectChanges();
+
+      const noMovieNotice = fixture.debugElement.query(
+        By.css('.not-found-container')
+      );
+
+      expect(noMovieNotice).not.toBeNull();
+    });
+
+    it('should not render if movies is more than zero', () => {
+      component.movieData = moviesDataSample;
+      fixture.detectChanges();
+
+      const noMovieNotice = fixture.debugElement.query(
+        By.css('.not-found-container')
+      );
+      expect(noMovieNotice).toBeNull();
     });
   });
 });

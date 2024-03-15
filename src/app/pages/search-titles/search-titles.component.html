@@ -4,6 +4,12 @@
   <h1>
     {{ searchTitle }}
   </h1>
+  <div
+    class="not-found-container"
+    *ngIf="!movieData || !(movieData.length > 0)"
+  >
+    <p class="not-found">Movie not found</p>
+  </div>
   <section class="movie-section">
     <movie-card
       *ngFor="let movieData of movieData"
