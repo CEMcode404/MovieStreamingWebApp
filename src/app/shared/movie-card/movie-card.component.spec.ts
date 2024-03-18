@@ -7,14 +7,20 @@ import {
 import { MovieCardComponent } from './movie-card.component';
 import { By } from '@angular/platform-browser';
 import { Movie } from '../../services/movies/movies.service';
+import { Router } from '@angular/router';
 
 describe('MovieCardComponent', () => {
   let component: MovieCardComponent;
   let fixture: ComponentFixture<MovieCardComponent>;
+  let router: jasmine.SpyObj<Router>;
   const movie = { imgSrc: '', title: 'Godzilla: King of the Monsters' };
+
   beforeEach(async () => {
+    router = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
       imports: [MovieCardComponent],
+      providers: [{ provide: Router, useValue: router }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MovieCardComponent);
@@ -54,6 +60,20 @@ describe('MovieCardComponent', () => {
 
       expect(component.isTitleOverflowing).toBeFalsy();
     }));
+  });
+
+  describe('gotoMovieWithId method', () => {
+    it('should not call navigate if input id is empty', () => {
+      component.gotoMovieWithId('  ');
+
+      expect(router.navigate).not.toHaveBeenCalled();
+    });
+
+    it('should call navigate if input id is not empty', () => {
+      component.gotoMovieWithId('randomId');
+
+      expect(router.navigate).toHaveBeenCalled();
+    });
   });
 
   describe('Title Continuation Dots', () => {
