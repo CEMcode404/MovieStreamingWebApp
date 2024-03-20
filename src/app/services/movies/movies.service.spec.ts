@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { MoviesService } from './movies.service';
+import { Movie, MoviesService } from './movies.service';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -12,6 +12,7 @@ describe('MoviesService', () => {
   const moviesDataFilePath = 'assets/mock-data/movies.json';
   const filters = ['action', 'sci-fi'];
   const title = 'inception';
+  const movieDataSample = movies.slice(0, 10);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,7 +41,7 @@ describe('MoviesService', () => {
 
       const req = httpMock.expectOne(moviesDataFilePath);
       expect(req.request.method).toBe('GET');
-      req.flush(movies);
+      req.flush(movieDataSample);
     });
 
     it('should throw an error if fetching movies failed', async () => {
@@ -60,7 +61,7 @@ describe('MoviesService', () => {
     it('should return random movies if there is no argument', async () => {
       const response = service.getMovies({});
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       expect((await response).length).toBeGreaterThan(0);
     });
@@ -68,7 +69,7 @@ describe('MoviesService', () => {
     it('should return random movies if first argument is a single empty object', async () => {
       const response = service.getMovies({});
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       expect((await response).length).toBeGreaterThan(0);
     });
@@ -77,7 +78,7 @@ describe('MoviesService', () => {
       it('should return random movies if title field is empty', async () => {
         const response = service.getMovies({ title: '' });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeGreaterThan(0);
       });
@@ -85,7 +86,7 @@ describe('MoviesService', () => {
       it('should return movies containing the search string', async () => {
         const response = service.getMovies({ title });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           expect(lowercaseAndTrim(movie.title)).toContain(title);
@@ -97,7 +98,7 @@ describe('MoviesService', () => {
       it('should return random movies if filter field is empty array', async () => {
         const response = service.getMovies({ filters: [] });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeGreaterThan(0);
       });
@@ -106,7 +107,7 @@ describe('MoviesService', () => {
         const filters = ['action'];
         const response = service.getMovies({ filters });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           filters.forEach((filter) => {
@@ -120,7 +121,7 @@ describe('MoviesService', () => {
       it('should return movies that match the filters', async () => {
         const response = service.getMovies({ filters });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           filters.forEach((filter) => {
@@ -136,7 +137,7 @@ describe('MoviesService', () => {
       it('should return random movies if both field is empty', async () => {
         const response = service.getMovies({ title: '', filters: [] });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeGreaterThan(0);
       });
@@ -144,7 +145,7 @@ describe('MoviesService', () => {
       it('should return movies that match the title if title is filled and filter is empty', async () => {
         const response = service.getMovies({ title, filters: [] });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           expect(lowercaseAndTrim(movie.title)).toContain(title);
@@ -154,7 +155,7 @@ describe('MoviesService', () => {
       it('should return movies that match the filters if filter is filled and title is empty', async () => {
         const response = service.getMovies({ title: '', filters });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           filters.forEach((filter) => {
@@ -168,7 +169,7 @@ describe('MoviesService', () => {
       it('should return movies that match both filters and the title', async () => {
         const response = service.getMovies({ title, filters });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           filters.forEach((filter) => {
@@ -189,7 +190,7 @@ describe('MoviesService', () => {
         const limit = 1;
         const response = service.getMovies({ limit });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeLessThanOrEqual(limit);
       });
@@ -199,7 +200,7 @@ describe('MoviesService', () => {
         const offset = 3;
         const response = service.getMovies({ offset });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeLessThanOrEqual(defaultLimit);
       });
@@ -209,7 +210,7 @@ describe('MoviesService', () => {
         const offset = 3;
         const response = service.getMovies({ offset, limit });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeLessThanOrEqual(limit);
       });
@@ -220,7 +221,7 @@ describe('MoviesService', () => {
         const toBeExectedNumberOfMovies = Math.abs(limit);
         const response = service.getMovies({ offset, limit });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeLessThanOrEqual(
           toBeExectedNumberOfMovies
@@ -237,7 +238,7 @@ describe('MoviesService', () => {
           { limit, offset }
         );
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           filters.forEach((filter) => {
@@ -257,7 +258,7 @@ describe('MoviesService', () => {
       it('should behave as if querying by title only, by filters, or both if second parameter is an empty object', async () => {
         const response = service.getMovies({ title, filters }, {});
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         (await response).forEach((movie) => {
           filters.forEach((filter) => {
@@ -277,7 +278,7 @@ describe('MoviesService', () => {
         const offset = 0;
         const response = service.getMovies({}, { limit, offset });
 
-        httpMock.expectOne(moviesDataFilePath).flush(movies);
+        httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
         expect((await response).length).toBeLessThanOrEqual(limit - offset);
       });
@@ -302,7 +303,7 @@ describe('MoviesService', () => {
     it('should return movies even if filter is empty', async () => {
       const response = service.getMoviesWithFilter([]);
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       expect((await response).length).toBeGreaterThan(0);
     });
@@ -310,7 +311,7 @@ describe('MoviesService', () => {
     it('should return movies that match the filters provided', async () => {
       const response = service.getMoviesWithFilter(filters);
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       (await response).forEach((movie) => {
         filters.forEach((filter) => {
@@ -326,7 +327,7 @@ describe('MoviesService', () => {
       const offset = 3;
       const response = service.getMoviesWithFilter(filters, { limit, offset });
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       (await response).forEach((movie) => {
         filters.forEach((filter) => {
@@ -358,7 +359,7 @@ describe('MoviesService', () => {
     it('should return movies that match provided title', async () => {
       const response = service.getMoviesWithTitle(title);
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       (await response).forEach((movie) => {
         expect(lowercaseAndTrim(movie.title)).toContain(title);
@@ -370,13 +371,52 @@ describe('MoviesService', () => {
       const offset = 0;
       const response = service.getMoviesWithTitle(title, { limit, offset });
 
-      httpMock.expectOne(moviesDataFilePath).flush(movies);
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
 
       (await response).forEach((movie) => {
         expect(lowercaseAndTrim(movie.title)).toContain(title);
       });
 
       expect((await response).length).toBeLessThanOrEqual(limit - offset);
+    });
+  });
+
+  describe('getMovieWithId', () => {
+    const id = movieDataSample[0].isan;
+    it('should throw an error if fetching movies failed', async () => {
+      const response = service.getMovieWithId(id);
+
+      httpMock
+        .expectOne(moviesDataFilePath)
+        .flush(null, { status: 404, statusText: 'Not Found' });
+
+      try {
+        await response;
+      } catch (error) {
+        expect(error).toMatch('Failed to get movies');
+      }
+    });
+
+    it('should return movie that strictly (case sensitive) match the id', async () => {
+      const response = service.getMovieWithId(id.toLowerCase());
+
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
+
+      expect(await response).toBeNull();
+    });
+
+    it('should return null if id is empty string', async () => {
+      const response = service.getMovieWithId('');
+
+      expect(await response).toBeNull();
+    });
+
+    it('should return a movie that match the id', async () => {
+      const response = service.getMovieWithId(id);
+
+      httpMock.expectOne(moviesDataFilePath).flush(movieDataSample);
+
+      expect(((await response) as Movie).isan).toBe(id);
     });
   });
 });

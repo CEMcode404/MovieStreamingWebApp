@@ -2,13 +2,31 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, firstValueFrom, catchError, throwError } from 'rxjs';
 
-export interface Movie {
-  title: string;
-  imgSrc: string;
-  filters: string[];
+type MovieQuality = 'HD' | 'SD' | 'FULL HD' | '2K' | 'UHD' | '8K';
+export interface VideoSrc {
+  quality: string;
+  type: string;
+  src: string;
 }
 
-interface MatchMovie extends Partial<Omit<Movie, 'imgSrc'>> {}
+export interface Movie {
+  actor: string[];
+  country: string[];
+  director: string[];
+  description: string;
+  durationInMinutes: number;
+  filters: string[];
+  genre: string[];
+  isan: string;
+  imdb: string;
+  imgSrc: string;
+  release: number;
+  title: string;
+  quality: MovieQuality;
+  videoSrc: VideoSrc[];
+}
+
+interface MatchMovie extends Partial<Omit<Movie, 'imgSrc' | 'videoSrc'>> {}
 interface Options {
   limit?: number;
   offset?: number;
@@ -20,6 +38,19 @@ interface Options {
 export class MoviesService {
   private readonly dataURL = 'assets/mock-data/movies.json';
   constructor(private http: HttpClient) {}
+
+  async getMovieWithId(id: string): Promise<Movie | null> {
+    const isIdDefined = id.trim();
+
+    if (isIdDefined) {
+      const movie = (
+        await this.getMovies({ isan: isIdDefined }, { limit: 1 })
+      )[0];
+
+      return movie ? movie : null;
+    }
+    return null;
+  }
 
   async getMoviesWithTitle(movieTitle: string): Promise<Movie[]>;
   async getMoviesWithTitle(
@@ -119,29 +150,96 @@ export class MoviesService {
 
   private filterMoviesBy(matchObject: MatchMovie, movies: Movie[]): Movie[] {
     return movies.filter((movie) => {
+      const matcher = new MatchingContext(new StringMatchingStrategy());
+
       for (const key of Object.keys(matchObject)) {
         const movieFieldValue = (movie as any)[key];
         const matchObjectFieldValue = (matchObject as any)[key];
 
-        if (key === 'filters') {
-          for (const filterName of matchObjectFieldValue) {
-            if (
-              !this.lowercaseAndTrim(movieFieldValue).includes(
-                this.lowercaseAndTrim(filterName)
-              )
-            )
-              return false;
-          }
-        } else if (
-          typeof matchObjectFieldValue === 'string' &&
-          !this.lowercaseAndTrim(movieFieldValue).includes(
-            this.lowercaseAndTrim(matchObjectFieldValue)
-          )
-        )
-          return false;
+        if (key === 'isan') {
+          matcher.setStrategy(new StrictStringMatchingStrategy());
+
+          if (!matcher.isMatch(movieFieldValue, matchObjectFieldValue))
+            return false;
+        } else if (typeof matchObjectFieldValue === 'number') {
+          matcher.setStrategy(new NumberMatchingStrategy());
+
+          if (!matcher.isMatch(movieFieldValue, matchObjectFieldValue))
+            return false;
+        } else if (typeof matchObjectFieldValue === 'string') {
+          matcher.setStrategy(new StringMatchingStrategy());
+
+          if (!matcher.isMatch(movieFieldValue, matchObjectFieldValue))
+            return false;
+        } else {
+          matcher.setStrategy(new StringArrayMatchingStrategy());
+
+          if (!matcher.isMatch(movieFieldValue, matchObjectFieldValue))
+            return false;
+        }
       }
       return true;
     });
+  }
+}
+
+class MatchingContext {
+  private strategy: MatchingStrategy;
+
+  constructor(strategy: MatchingStrategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy: MatchingStrategy) {
+    this.strategy = strategy;
+  }
+
+  isMatch(source: any, toBeMatch: any): boolean {
+    return this.strategy.isMatch(source, toBeMatch);
+  }
+}
+
+interface MatchingStrategy {
+  isMatch(source: any, toBeMatch: any): boolean;
+}
+
+class StrictStringMatchingStrategy implements MatchingStrategy {
+  isMatch(source: string, toBeMatch: string): boolean {
+    if (typeof source === 'string' && typeof toBeMatch === 'string')
+      return source === toBeMatch;
+    else throw Error('Arguments must be strings');
+  }
+}
+
+class NumberMatchingStrategy implements MatchingStrategy {
+  isMatch(source: number, toBeMatch: number): boolean {
+    if (typeof source === 'number' && typeof toBeMatch === 'number')
+      return source === toBeMatch;
+    else throw Error('Arugments must be numbers');
+  }
+}
+
+class StringMatchingStrategy implements MatchingStrategy {
+  isMatch(source: string, toBeMatch: string): boolean {
+    if (typeof source === 'string' && typeof toBeMatch === 'string')
+      return source
+        .trim()
+        .toLocaleLowerCase()
+        .includes(toBeMatch.trim().toLocaleLowerCase());
+    else throw Error('Arguments must be strings');
+  }
+}
+
+class StringArrayMatchingStrategy implements MatchingStrategy {
+  isMatch(source: string[], toBeMatch: string): boolean {
+    if (Array.isArray(source) && Array.isArray(toBeMatch)) {
+      const newSource = this.lowercaseAndTrim(source);
+
+      for (const match of toBeMatch) {
+        if (!newSource.includes(this.lowercaseAndTrim(match))) return false;
+      }
+      return true;
+    } else throw Error('Argument must be string array');
   }
 
   private lowercaseAndTrim(input: string): string;
@@ -150,6 +248,6 @@ export class MoviesService {
     if (typeof input === 'string') return input.trim().toLowerCase();
     else if (Array.isArray(input))
       return input.map((str) => this.lowercaseAndTrim(str));
-    else throw Error('input must be string or string array');
+    else throw Error('Argument must be string or string array');
   }
 }
