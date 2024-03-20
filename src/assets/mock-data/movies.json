@@ -14,8 +14,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure."
@@ -41,8 +52,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Wednesday Addams is sent to Nevermore Academy, a bizarre boarding school where she attempts to master her psychic powers, stop a monstrous killing spree of the town citizens, and solve the supernatural mystery that affected her family 25 years ago — all while navigating her new relationships."
@@ -51,7 +73,7 @@
     "title": "Inception",
     "imgSrc": "https://i.imgur.com/NqO7U4c.jpg",
     "filters": ["Action", "Sci-Fi", "Mystery", "Popular"],
-    "isan": "ISAN 0000-0000-FB17",
+    "isan": "ISAN 0000-0002-B3C8-0000-3-0000-0000-S",
     "imdb": "8",
     "actor": ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
     "genre": ["Action", "Sci-Fi", "Mystery"],
@@ -62,8 +84,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The movie tells about Dom Cobb. He is not an ordinary thief. He is masterly on stolen, can penetrate into the unconscious of any person to steal the recesses secret of these people. If he wants to do this, he walks into their dreams."
@@ -94,8 +127,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The new story follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-species—thought to be mere myths—rise again, they all vie for supremacy, leaving humanity’s very existence hanging in the balance."
@@ -115,8 +159,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The surviving Resistance faces the First Order once more in the final chapter of the Skywalker saga.::Gai’ Phó"
@@ -136,8 +191,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Legendary Pictures Warcraft, a 3D epic adventure of world-colliding conflict based upon Blizzard Entertainment’s globally-renowned universe, is directed by Duncan Jones and is written by Charles Leavitt and rewritten by Duncan Jones. The producers are Charles Roven, Thomas Tull, Jon Jashni and Alex Gartner. Stuart Fenegan, Jillian Share and Brent O’Connor serve as executive producers. Blizzard’s Chris Metzen co-produces."
@@ -165,8 +231,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The film is set in 1985, when superheroes exist, Richard Nixon is still president, and the Cold War tensions between the US and the Soviet Union at the height."
@@ -192,8 +269,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Plagued by strange memories, Neo’s life takes an unexpected turn when he finds himself back inside the Matrix."
@@ -224,8 +312,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The powerful god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders."
@@ -245,8 +344,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "A secret government agency recruits some of the most dangerous incarcerated super-villains to form a defensive task force. Their first mission: save the world from the apocalypse."
@@ -266,8 +376,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The film begins with a peaceful and fun life of the birds in an island. From the beginning the song trailer “Close To You Carpenters” group with the lyrics “Why do birds suddenly appear…” like extremely appropriate for this film,…"
@@ -287,8 +408,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The final battle for Middle-earth begins. Frodo and Sam, led by Gollum, continue their dangerous mission toward the fires of Mount Doom in order to destroy the One Ring."
@@ -308,8 +440,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Mad Max: Fury Road , action film, sets in the post-apocalyptic world. Max is a man trying to find the peace after his wife and children were killed and Furiosa is a woman seeking to return home. They accidentally meet and work together to escape the pursuit of the bandits led by Joe Immortan boss…"
@@ -329,8 +472,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Tony Stark is an owner of a technology group, and a weird playboy. In the inspecting Afghanistan, he was kidnapped by a terrorist group. They demanded Tony creating weapons of mass destruction to attack America. Realize the reality that these weapons he is manufactured against himself, Tony begins manufacturing high-tech armor. Escape from the detention, Tony became the representative of justice under the nickname Iron Man. Meanwhile, fellow in the group attempting to overthrow him."
@@ -357,8 +511,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "On a secret island, the dinosaur recreation work is completed by the rest DNA on the ancient mosquito. Before opening his park, Mr. Hammond invited a group of scientists come to visit and help him. But in a stormy night, the protection system collapses, the ancient giant beast escape…"
@@ -385,8 +550,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Predators which is a American science fiction action horror film is directed by Nimród Antal with the participation of Adrien Brody, Topher Grace, Alice Braga, Walton Goggins, Laurence Fishburne, Danny Trejo, etc. Royce awakens to find himself parachuting into an unfamiliar jungle. He meets several others who arrived in the same manner: Mexican drug cartel enforcer Cuchillo, Spetsnaz soldier Nikolai, Israel Defense Forces sniper Isabelle, Revolutionary United Front officer Mombasa, death row inmate Stans, Yakuza enforcer Hanzo, and a general practice doctor Edwin."
@@ -406,8 +582,19 @@
     "country": ["United States", "Australia"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "The epic next chapter in the cinematic Monsterverse pits two of the greatest icons in motion picture history against one another - the fearsome Godzilla and the mighty Kong - with humanity caught in the balance.::Warner Bros."
@@ -433,8 +620,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Black Manta, still driven by the need to avenge his father’s death and wielding the power of the mythic Black Trident, will stop at nothing to take Aquaman down once and for all. To defeat him, Aquaman must turn to his imprisoned brother Orm, the former King of Atlantis, to forge an unlikely alliance in order to save the world from irreversible destruction."
@@ -454,8 +652,19 @@
     "country": ["United States", "Canada"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Feature adaptation of Frank Herbert’s science fiction novel, about the son of a noble family entrusted with the protection of the most valuable asset and most vital element in the galaxy.::Anonymous"
@@ -475,8 +684,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "A film about Natasha Romanoff in her quests between the films Civil War and Infinity War."
@@ -506,8 +726,19 @@
     "country": ["United States"],
     "videoSrc": [
       {
-        "server": "vimeo",
-        "src": "https://player.vimeo.com/video/924077200?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        "quality": "HD",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_1280x720_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "720p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_720x480_1mb.mp4",
+        "type": "video/mp4"
+      },
+      {
+        "quality": "360p",
+        "src": "http://localhost:4200/assets/sample-videos/SampleVideo_360x240_1mb.mp4",
+        "type": "video/mp4"
       }
     ],
     "description": "Steve Rogers, a rejected military soldier transforms into Captain America after taking a dose of a “Super-Soldier serum”. But being Captain America comes at a price as he attempts to take down a war monger and a terrorist organization."
