@@ -64,7 +64,7 @@
           *ngFor="let suggestion of searchSuggestions"
           class="movie-suggestion"
           tabindex="-1"
-          (click)="onSelectMovie()"
+          (click)="gotoMovieWithId(suggestion.isan)"
         >
           <img src="{{ suggestion.imgSrc }}" />
           <p>{{ suggestion.title }}</p>

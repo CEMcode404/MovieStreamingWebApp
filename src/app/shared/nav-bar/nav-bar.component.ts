@@ -68,7 +68,7 @@ export class NavBarComponent implements AfterViewInit, OnInit, OnDestroy {
       });
   }
 
-  getCurrentRoute() {
+  private getCurrentRoute() {
     return this.router.url;
   }
 
@@ -131,15 +131,25 @@ export class NavBarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.isSuggestionsHidden = true;
   }
 
-  onSelectMovie() {
-    this.isSuggestionsHidden = true;
-  }
-
   gotoSearchResults() {
     this.router.navigate(['/search-titles'], {
       queryParams: {
         searchTitle: this.inputControl.value?.trim() as string,
       },
     });
+  }
+
+  gotoMovieWithId(id: string): void {
+    const isIdNotNull = id.trim();
+
+    if (isIdNotNull) {
+      this.router.navigate(['/movies'], {
+        queryParams: {
+          id: isIdNotNull,
+        },
+      });
+    }
+
+    this.isSuggestionsHidden = true;
   }
 }
