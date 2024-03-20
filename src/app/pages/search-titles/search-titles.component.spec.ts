@@ -9,7 +9,7 @@ import { SearchTitlesComponent } from './search-titles.component';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BehaviorSubject } from 'rxjs';
-import { MoviesService } from '../../services/movies/movies.service';
+import { Movie, MoviesService } from '../../services/movies/movies.service';
 import { LogService } from '../../services/log/log.service';
 import movies from '../../../assets/mock-data/movies.json';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -51,7 +51,7 @@ describe('SearchTitlesComponent', () => {
   });
 
   const pageNumber = 3;
-  const moviesDataSample = movies.slice(0, 5);
+  const moviesDataSample = movies.slice(0, 5) as Movie[];
   describe('onQueryParamsChange method', () => {
     const searchTitle = 'random';
     it('should handle error if failed to get movies', async () => {

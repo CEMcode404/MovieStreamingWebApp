@@ -4,25 +4,28 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 
 import { NavBarComponent } from './nav-bar.component';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LogService } from '../../services/log/log.service';
-import { MoviesService } from '../../services/movies/movies.service';
+import { Movie, MoviesService } from '../../services/movies/movies.service';
 import movies from '../../../assets/mock-data/movies.json';
 import { DebugElement } from '@angular/core';
 
+const movieDataSample = movies.slice(0, 5) as Movie[];
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
   let fixture: ComponentFixture<NavBarComponent>;
   let moviesServiceMock: jasmine.SpyObj<MoviesService>;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
     moviesServiceMock = jasmine.createSpyObj('MoviesService', [
       'getMoviesWithTitle',
     ]);
+    router = jasmine.createSpyObj('Router', ['navigate'], { url: '/' });
 
     await TestBed.configureTestingModule({
       imports: [NavBarComponent, HttpClientTestingModule],
@@ -34,6 +37,10 @@ describe('NavBarComponent', () => {
         {
           provide: MoviesService,
           useValue: moviesServiceMock,
+        },
+        {
+          provide: Router,
+          useValue: router,
         },
       ],
     }).compileComponents();
@@ -57,7 +64,7 @@ describe('NavBarComponent', () => {
       fixture.detectChanges();
 
       fixture.debugElement
-        .queryAll(By.css(`a[href='${component.getCurrentRoute()}']`))
+        .queryAll(By.css(`a[href='${router.url}']`))
         .forEach((link) => {
           expect(
             (link.nativeElement as HTMLElement).classList.contains('active')
@@ -208,7 +215,7 @@ describe('NavBarComponent', () => {
     it("shouldn't invoke LogService.error if fetching movies succeded", fakeAsync(() => {
       const logServiceError = spyOn(LogService, 'error');
       moviesServiceMock.getMoviesWithTitle.and.returnValue(
-        Promise.resolve(movies)
+        Promise.resolve(movieDataSample)
       );
 
       setSearchBarValue(input, fixture.debugElement.query(By.css('input')));
@@ -243,7 +250,7 @@ describe('NavBarComponent', () => {
 
     it("shouldn't display 'not found message' if search result is more than zero", fakeAsync(() => {
       moviesServiceMock.getMoviesWithTitle.and.returnValue(
-        Promise.resolve(movies)
+        Promise.resolve(movieDataSample)
       );
 
       setSearchBarValue(input, fixture.debugElement.query(By.css('input')));
@@ -252,21 +259,35 @@ describe('NavBarComponent', () => {
       expect(notFoundElement).toBeNull();
     }));
 
-    it('should call onSelectMovie if a suggested movie title is click', () => {
-      const onSelectMovie = spyOn(component, 'onSelectMovie');
-      component.searchSuggestions = movies;
-      component.isSuggestionsHidden = false;
+    describe('gotoMovieWithId method', () => {
+      it('should call gotoMovieWitId if a suggested movie title is click', () => {
+        const gotoMovieWithId = spyOn(component, 'gotoMovieWithId');
+        component.searchSuggestions = movieDataSample;
+        component.isSuggestionsHidden = false;
 
-      fixture.detectChanges();
-      fixture.debugElement
-        .query(By.css('.movie-suggestion'))
-        .triggerEventHandler('click');
+        fixture.detectChanges();
+        fixture.debugElement
+          .query(By.css('.movie-suggestion'))
+          .triggerEventHandler('click');
 
-      expect(onSelectMovie).toHaveBeenCalled();
+        expect(gotoMovieWithId).toHaveBeenCalled();
+      });
+
+      it('should not call navigate if input id is empty', () => {
+        component.gotoMovieWithId('  ');
+
+        expect(router.navigate).not.toHaveBeenCalled();
+      });
+
+      it('should call navigate if input id is not empty', () => {
+        component.gotoMovieWithId('randomId');
+
+        expect(router.navigate).toHaveBeenCalled();
+      });
     });
 
     it('should hide movie suggestions onblur', () => {
-      component.searchSuggestions = movies;
+      component.searchSuggestions = movieDataSample;
       component.isSuggestionsHidden = false;
 
       fixture.detectChanges();
@@ -281,7 +302,7 @@ describe('NavBarComponent', () => {
     it('should hide movie suggestions if input is empty', fakeAsync(() => {
       const inputElement = fixture.debugElement.query(By.css('input'));
       moviesServiceMock.getMoviesWithTitle.and.returnValue(
-        Promise.resolve(movies)
+        Promise.resolve(movieDataSample)
       );
 
       setSearchBarValue(input, inputElement);
@@ -293,7 +314,7 @@ describe('NavBarComponent', () => {
 
     it('should show movie suggestions if input is filled', fakeAsync(() => {
       moviesServiceMock.getMoviesWithTitle.and.returnValue(
-        Promise.resolve(movies)
+        Promise.resolve(movieDataSample)
       );
 
       setSearchBarValue(input, fixture.debugElement.query(By.css('input')));

@@ -6,10 +6,11 @@ import { HomeComponent } from './home.component';
 import { By } from '@angular/platform-browser';
 import { MovieFilterComponent } from './movie-filter/movie-filter.component';
 import { LogService } from '../../services/log/log.service';
-import { MoviesService } from '../../services/movies/movies.service';
+import { Movie, MoviesService } from '../../services/movies/movies.service';
 import movies from '../../../assets/mock-data/movies.json';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
+const moviesDataSample = movies.slice(0, 1) as Movie[];
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
@@ -66,8 +67,6 @@ describe('HomeComponent', () => {
     });
 
     it('should set movies', async () => {
-      const moviesDataSample = movies.slice(0, 1);
-
       moviesServiceMock.getMoviesWithFilter.and.returnValue(
         Promise.resolve(moviesDataSample)
       );
@@ -100,7 +99,7 @@ describe('HomeComponent', () => {
         Promise.resolve(movies.length)
       );
       moviesServiceMock.getMoviesWithFilter.and.returnValue(
-        Promise.resolve(movies)
+        Promise.resolve(moviesDataSample)
       );
       await component.onFilterChange({
         activeFilters: [],
@@ -144,8 +143,6 @@ describe('HomeComponent', () => {
     });
 
     it('should set movies', async () => {
-      const moviesDataSample = movies.slice(0, 1);
-
       moviesServiceMock.getMoviesWithFilter.and.returnValue(
         Promise.resolve(moviesDataSample)
       );

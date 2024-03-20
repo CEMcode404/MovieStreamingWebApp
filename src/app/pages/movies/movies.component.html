@@ -1,0 +1,71 @@
+<nav-bar></nav-bar>
+<main>
+  <div class="video-container" *ngIf="selectedQuality">
+    <video controls src="{{ selectedQuality.src }}">
+      Your browser does not support the video tag.
+    </video>
+    <div class="quality-selector">
+      <select id="dropdown" [(ngModel)]="selectedQuality">
+        <option [ngValue]="videoSrc" *ngFor="let videoSrc of movie.videoSrc">
+          {{ videoSrc.quality }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <section class="movie-details" *ngIf="movie">
+    <img src="{{ movie.imgSrc }}" />
+
+    <h1>{{ movie.title | titlecase }}</h1>
+    <p class="description">{{ movie.description }}</p>
+    <p class="field-name">Genre:</p>
+    <p class="field-value">
+      <span *ngFor="let genre of movie.genre; let last = last"
+        >{{ genre }}{{ !last ? "," : "" }}</span
+      >
+    </p>
+    <p class="field-name">Actor:</p>
+    <p class="field-value">
+      <span *ngFor="let actor of movie.actor; let last = last"
+        >{{ actor }}{{ !last ? "," : "" }}</span
+      >
+    </p>
+    <p class="field-name">Director:</p>
+    <p class="field-value">
+      <span *ngFor="let director of movie.director; let last = last"
+        >{{ director }}{{ !last ? "," : "" }}</span
+      >
+    </p>
+
+    <p class="field-name">Country:</p>
+    <p class="field-value">
+      <span *ngFor="let country of movie.country; let last = last"
+        >{{ country }}{{ !last ? "," : "" }}</span
+      >
+    </p>
+
+    <p class="field-name">Duration:</p>
+    <p class="field-value">
+      <span> {{ movie.durationInMinutes }} min/s </span>
+    </p>
+    <p class="field-name">Quality:</p>
+    <p class="field-value">
+      <span>
+        {{ movie.quality }}
+      </span>
+    </p>
+    <p class="field-name">Release:</p>
+    <p class="field-value">
+      <span>
+        {{ movie.release }}
+      </span>
+    </p>
+    <p class="field-name">IMDb:</p>
+    <p class="field-value">
+      <span>
+        {{ movie.imdb }}
+      </span>
+    </p>
+  </section>
+</main>
+
+<app-footer></app-footer>

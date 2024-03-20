@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Movie } from '../../services/movies/movies.service';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'movie-card',
@@ -25,7 +26,7 @@ export class MovieCardComponent implements AfterViewInit, OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isTitleOverflowing = false;
 
-  constructor(private changeRef: ChangeDetectorRef) {}
+  constructor(private changeRef: ChangeDetectorRef, private _router: Router) {}
   ngOnInit(): void {
     this.resize$
       .pipe(debounceTime(200), takeUntil(this.destroy$))
@@ -61,5 +62,17 @@ export class MovieCardComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  gotoMovieWithId(id: string): void {
+    const isIdNotNull = id.trim();
+
+    if (isIdNotNull) {
+      this._router.navigate(['/movies'], {
+        queryParams: {
+          id: isIdNotNull,
+        },
+      });
+    }
   }
 }
