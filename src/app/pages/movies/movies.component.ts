@@ -68,6 +68,6 @@ export class MoviesComponent implements OnInit {
 
   private handleError(errorMessage: Error) {
     LogService.error(errorMessage);
-    this._router.navigateByUrl('/not-found');
+    this._router.navigateByUrl('/not-found', { skipLocationChange: true });
   }
 }
