@@ -59,6 +59,7 @@ describe('MoviesComponent', () => {
       await component.onQueryParamsChange({ id: validId });
 
       expect(logServiceError).toHaveBeenCalled();
+      expect(router.navigateByUrl);
     });
 
     it('shouldn handle error if query params is empty', async () => {
@@ -73,6 +74,7 @@ describe('MoviesComponent', () => {
       await component.onQueryParamsChange({ id: '' });
 
       expect(logServiceError).toHaveBeenCalled();
+      expect(router.navigateByUrl);
     });
 
     it('should handle error movie returned is null', async () => {
@@ -84,6 +86,7 @@ describe('MoviesComponent', () => {
       await component.onQueryParamsChange({ id: 'idNotFoundInDB' });
 
       expect(logServiceError).toHaveBeenCalled();
+      expect(router.navigateByUrl);
     });
 
     it('should set movies if query params is not empty', async () => {

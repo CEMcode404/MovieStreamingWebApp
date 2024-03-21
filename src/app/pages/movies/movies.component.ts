@@ -50,20 +50,24 @@ export class MoviesComponent implements OnInit {
           this.movie = isMovieNotNull;
           this.selectedQuality = this.movie.videoSrc[0] as VideoSrc;
         } else {
-          LogService.error(
+          this.handleError(
             Error(`Something went wrong. Movie with id: ${movieId} is missing.`)
           );
         }
       } catch (error) {
-        this._router.navigateByUrl('/not-found');
-        LogService.error(Error('Failed to get movies.'));
+        this.handleError(Error('Failed to get movies.'));
       }
     } else {
-      LogService.error(
+      this.handleError(
         Error(
           '"/movies" path guard is malfunctioning, allowing empty IDs to pass through.'
         )
       );
     }
+  }
+
+  private handleError(errorMessage: Error) {
+    LogService.error(errorMessage);
+    this._router.navigateByUrl('/not-found');
   }
 }
