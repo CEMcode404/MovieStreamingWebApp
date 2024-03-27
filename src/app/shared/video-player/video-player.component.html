@@ -17,21 +17,23 @@
   >
     Your browser does not support the video tag.
   </video>
-  <div class="controller" *ngIf="isControllerVisible">
-    <input
-      (input)="onProgressBarValueChange($event)"
-      [ngStyle]="{
-        '--loadWidth': bufferProgress + '%',
-        '--currentTime': currentTimeInPercentage + '%'
-      }"
-      class="duration-bar"
-      type="range"
-      min="0"
-      [max]="duration"
-      step="1"
-      [value]="currentTime"
-    />
-    <div class="quality-selector">
+
+  <div class="controller-wrapper">
+    <div class="controller" *ngIf="isControllerVisible">
+      <input
+        (input)="onProgressBarValueChange($event)"
+        [ngStyle]="{
+          '--loadWidth': bufferProgress + '%',
+          '--currentTime': currentTimeInPercentage + '%'
+        }"
+        class="progress-bar"
+        type="range"
+        min="0"
+        [max]="duration"
+        step="1"
+        [value]="currentTime"
+      />
+
       <button (click)="togglePlayPause()">
         <img
           src="assets/images/control-icons/play-solid.svg"
@@ -58,54 +60,65 @@
         />
       </button>
       <input
-        [(ngModel)]="volume"
         type="range"
         min="0"
         max="100"
         step="1"
         value="100"
+        (input)="onVolumeChange($event)"
       />
 
-      <p>{{ timeDisplay }}</p>
-      <select [(ngModel)]="defaultVideoIndex">
-        <option
-          [ngValue]="index"
-          *ngFor="let videoSrc of videos; let index = index"
-        >
-          {{ videoSrc.quality }}
-        </option>
-      </select>
+      <p class="time-display">{{ timeDisplay }}</p>
       <button (click)="toggleFullScreen()">
         <img src="assets/images/control-icons/expand-solid.svg" />
       </button>
-      <div class="settings">
-        <button (click)="openSettings()">
-          <img src="assets/images/control-icons/gear-solid.svg" />
-        </button>
 
-        <settings-menu
-          (close)="closeSettings()"
-          [isOpen]="isSettingsOpen"
-          class="settings-menu"
-        >
-          <button (click)="openPlayback()">Playback speed</button>
-        </settings-menu>
+      <button (click)="openSettings()">
+        <img src="assets/images/control-icons/gear-solid.svg" />
+      </button>
 
-        <settings-menu
-          [showBackButton]="true"
-          (goBack)="openSettings()"
-          (close)="closeSettings()"
-          [isOpen]="isPlaybackSpeedOpen"
-          class="settings-menu"
-        >
-          <button
-            *ngFor="let rate of playbackRates"
-            (click)="setPlaybackRate(rate)"
-          >
-            {{ rate === 1 ? "Normal" : rate }}
-          </button>
-        </settings-menu>
-      </div>
+      <settings-menu
+        (close)="closeSettings()"
+        [isOpen]="isSettingsOpen"
+        class="settings-menu"
+      >
+        <button (click)="openPlayback()">Playback speed</button>
+        <button (click)="openQualityMenu()">Quality</button>
+      </settings-menu>
+
+      <settings-menu
+        [showBackButton]="true"
+        (goBack)="openSettings()"
+        (close)="closeSettings()"
+        [isOpen]="isPlaybackSpeedOpen"
+        class="settings-menu"
+      >
+        <label
+          *ngFor="let rate of playbackRates"
+          (click)="setPlaybackRate(rate)"
+          ><input name="playbackRate" type="radio" [checked]="rate === 1" />
+          {{ rate === 1 ? "Normal" : rate }}
+        </label>
+      </settings-menu>
+
+      <settings-menu
+        [showBackButton]="true"
+        (goBack)="openSettings()"
+        (close)="closeSettings()"
+        [isOpen]="isQualityMenuOpen"
+        class="settings-menu"
+      >
+        <label
+          *ngFor="let videoSrc of videos; let index = index"
+          (click)="onVideoQualityChange(index)"
+          ><input
+            name="videoQuality"
+            type="radio"
+            [checked]="videoSrc.quality === 'HD'"
+          />
+          {{ videoSrc.quality }}
+        </label>
+      </settings-menu>
     </div>
   </div>
 </div>

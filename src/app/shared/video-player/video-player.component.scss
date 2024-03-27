@@ -11,9 +11,30 @@
   }
 }
 
+.controller-wrapper {
+  position: relative;
+}
+
+.controller {
+  margin: 0.5rem;
+  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, min-content) auto repeat(3, min-content);
+  align-items: center;
+
+  .progress-bar {
+    grid-column: span 7;
+  }
+}
+
+.time-display {
+  margin: 0;
+}
+
 .video-container:fullscreen {
   video {
-    max-height: 100%;
+    height: 100%;
+    width: 100%;
   }
 
   .controller {
@@ -25,36 +46,34 @@
   }
 }
 
-.quality-selector {
-  display: flex;
-  padding: 1rem;
+select {
+  height: 75%;
+  border: none;
+}
 
-  select {
-    margin-left: auto;
-    border: none;
-  }
+input[type="radio"] {
+  display: none;
 }
 
 button {
-  width: 1.3rem;
-  img {
-    width: 100%;
-  }
   border: none;
   background-color: transparent;
+  height: 75%;
+
+  img {
+    height: 100%;
+  }
 }
 
 button:hover {
   cursor: pointer;
 }
 
-.duration-bar {
+.progress-bar {
   position: relative;
-  margin: 0 1rem;
-  width: calc(100% - 2rem);
 }
 
-.duration-bar::before {
+.progress-bar::before {
   content: "";
   position: absolute;
   top: 0;
@@ -62,7 +81,8 @@ button:hover {
   background-color: rgba(255, 255, 255, 0.359);
   bottom: 0;
 }
-.duration-bar::after {
+
+.progress-bar::after {
   content: "";
   position: absolute;
   top: 0;
@@ -96,19 +116,44 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: -4px;
 }
 
-.settings {
-  position: relative;
-}
-
 .settings-menu {
   position: absolute;
   top: 0;
   right: 0;
   transform: translate(0, -100%);
+  margin: 1rem;
+  z-index: 1;
 
   button {
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem;
     color: var(--primary-color);
-    width: max-content;
     text-wrap: nowrap;
+  }
+
+  label {
+    box-sizing: border-box;
+    padding: 0.5rem;
+  }
+
+  button:hover {
+    background-color: var(--secondary-color-hover);
+  }
+
+  button:active {
+    background-color: var(--secondary-color-active);
+  }
+
+  label:hover {
+    background-color: var(--secondary-color-hover);
+  }
+
+  label:active {
+    background-color: var(--secondary-color-active);
+  }
+
+  label:has(input[type="radio"]:checked) {
+    background-color: var(--secondary-color-active);
   }
 }

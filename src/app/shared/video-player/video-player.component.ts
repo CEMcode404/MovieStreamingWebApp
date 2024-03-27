@@ -17,10 +17,19 @@ export interface Video {
   type: string;
 }
 
+//todo
+//check responsiveness
+//put arrow on settings
+//make the mute icon stable have a proper unifor witdh for it
+//hide the volume slider while no on hover on it
+//change the color of the volume thumb and provide a lower fill
+//put the quality of video the upper side of the gear image
+//the z-index of the navbar and the settings window is hitting
+
 @Component({
   selector: 'video-player',
   standalone: true,
-  imports: [CommonModule, FormsModule, SettingsMenuComponent],
+  imports: [CommonModule, SettingsMenuComponent],
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.scss',
 })
@@ -41,6 +50,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
   isControllerVisible = true;
   isSettingsOpen = false;
   isPlaybackSpeedOpen = false;
+  isQualityMenuOpen = false;
   playbackRates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
   private hideControllerDebouncer = new CustomDebounce(3000);
@@ -73,10 +83,20 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
           this.isPlaybackSpeedOpen = false;
         }
       ),
+      new State(
+        'Quality',
+        () => {
+          this.isQualityMenuOpen = true;
+        },
+        () => {
+          this.isQualityMenuOpen = false;
+        }
+      ),
     ],
     () => {
       this.isSettingsOpen = false;
       this.isPlaybackSpeedOpen = false;
+      this.isQualityMenuOpen = false;
     }
   );
 
@@ -142,6 +162,15 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
     this.isMute = !this.isMute;
   }
 
+  onVolumeChange(event: Event) {
+    const volume = parseInt((event.target as HTMLInputElement).value);
+    this.volume = volume;
+  }
+
+  onVideoQualityChange(index: number) {
+    this.defaultVideoIndex = index;
+  }
+
   onDurationChange() {
     //@ts-ignore
     // getTotalDuration returns a number but typechecker think it is returning null
@@ -203,6 +232,10 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
 
   openPlayback() {
     this._settingsDropDownStates.setState('PlaybackSpeed');
+  }
+
+  openQualityMenu() {
+    this._settingsDropDownStates.setState('Quality');
   }
 
   setPlaybackRate(rate: number) {
