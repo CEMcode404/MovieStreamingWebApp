@@ -1,16 +1,10 @@
 <nav-bar></nav-bar>
 <main>
   <div class="video-container" *ngIf="selectedQuality">
-    <video controls src="{{ selectedQuality.src }}">
-      Your browser does not support the video tag.
-    </video>
-    <div class="quality-selector">
-      <select id="dropdown" [(ngModel)]="selectedQuality">
-        <option [ngValue]="videoSrc" *ngFor="let videoSrc of movie.videoSrc">
-          {{ videoSrc.quality }}
-        </option>
-      </select>
-    </div>
+    <video-player
+      [videos]="movie.videoSrc"
+      [defaultVideoIndex]="0"
+    ></video-player>
   </div>
   <section class="movie-details" *ngIf="movie">
     <img src="{{ movie.imgSrc }}" />

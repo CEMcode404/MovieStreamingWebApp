@@ -12,11 +12,18 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { VideoPlayerComponent } from '../../shared/video-player/video-player.component';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [NavBarComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [
+    NavBarComponent,
+    FooterComponent,
+    CommonModule,
+    FormsModule,
+    VideoPlayerComponent,
+  ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss',
 })

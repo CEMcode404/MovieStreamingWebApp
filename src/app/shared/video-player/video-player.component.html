@@ -1,0 +1,111 @@
+<div
+  (fullscreenchange)="onFullScreenChange()"
+  (mousemove)="onMouseMove()"
+  #videoPlayer
+  *ngIf="videos"
+  class="video-container"
+>
+  <video
+    (loadeddata)="onVideoSrcChange()"
+    (progress)="onBufferProgressUpdate()"
+    (durationchange)="onDurationChange()"
+    [volume]="volume / maxVolume"
+    [muted]="isMute"
+    class="video-element"
+    src="{{ videos[defaultVideoIndex].src }}"
+    (ended)="onVideoEnded()"
+  >
+    Your browser does not support the video tag.
+  </video>
+  <div class="controller" *ngIf="isControllerVisible">
+    <input
+      (input)="onProgressBarValueChange($event)"
+      [ngStyle]="{
+        '--loadWidth': bufferProgress + '%',
+        '--currentTime': currentTimeInPercentage + '%'
+      }"
+      class="duration-bar"
+      type="range"
+      min="0"
+      [max]="duration"
+      step="1"
+      [value]="currentTime"
+    />
+    <div class="quality-selector">
+      <button (click)="togglePlayPause()">
+        <img
+          src="assets/images/control-icons/play-solid.svg"
+          *ngIf="!isPlaying"
+        />
+        <img
+          src="assets/images/control-icons/pause-solid.svg"
+          *ngIf="isPlaying"
+        />
+      </button>
+
+      <button (click)="toggleMuteUnmute()">
+        <img
+          *ngIf="!isMute && volume > 50"
+          src="assets/images/control-icons/volume-high-solid.svg"
+        />
+        <img
+          *ngIf="!isMute && volume <= 50"
+          src="assets/images/control-icons/volume-low-solid.svg"
+        />
+        <img
+          *ngIf="isMute"
+          src="assets/images/control-icons/volume-xmark-solid.svg"
+        />
+      </button>
+      <input
+        [(ngModel)]="volume"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="100"
+      />
+
+      <p>{{ timeDisplay }}</p>
+      <select [(ngModel)]="defaultVideoIndex">
+        <option
+          [ngValue]="index"
+          *ngFor="let videoSrc of videos; let index = index"
+        >
+          {{ videoSrc.quality }}
+        </option>
+      </select>
+      <button (click)="toggleFullScreen()">
+        <img src="assets/images/control-icons/expand-solid.svg" />
+      </button>
+      <div class="settings">
+        <button (click)="openSettings()">
+          <img src="assets/images/control-icons/gear-solid.svg" />
+        </button>
+
+        <settings-menu
+          (close)="closeSettings()"
+          [isOpen]="isSettingsOpen"
+          class="settings-menu"
+        >
+          <button (click)="openPlayback()">Playback speed</button>
+        </settings-menu>
+
+        <settings-menu
+          [showBackButton]="true"
+          (goBack)="openSettings()"
+          (close)="closeSettings()"
+          [isOpen]="isPlaybackSpeedOpen"
+          class="settings-menu"
+        >
+          <button
+            *ngFor="let rate of playbackRates"
+            (click)="setPlaybackRate(rate)"
+          >
+            {{ rate === 1 ? "Normal" : rate }}
+          </button>
+        </settings-menu>
+      </div>
+    </div>
+  </div>
+</div>

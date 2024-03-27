@@ -1,0 +1,9 @@
+<div *ngIf="isOpen" class="menu">
+  <div class="menu-header">
+    <button *ngIf="showBackButton" class="back-button" (click)="onGoBack()">
+      &lt;
+    </button>
+    <button class="close-button" (click)="onClose()">X</button>
+  </div>
+  <ng-content></ng-content>
+</div>

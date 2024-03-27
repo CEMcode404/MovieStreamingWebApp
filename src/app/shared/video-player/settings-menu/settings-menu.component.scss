@@ -1,0 +1,16 @@
+.menu {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menu-header {
+  display: flex;
+  background-color: var(--secondary-color);
+  width: 100%;
+}
+
+.close-button {
+  margin-left: auto;
+}
