@@ -7,7 +7,6 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Subscription, interval } from 'rxjs';
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 
@@ -24,7 +23,6 @@ export interface Video {
 //hide the volume slider while no on hover on it
 //change the color of the volume thumb and provide a lower fill
 //put the quality of video the upper side of the gear image
-//the z-index of the navbar and the settings window is hitting
 
 @Component({
   selector: 'video-player',
