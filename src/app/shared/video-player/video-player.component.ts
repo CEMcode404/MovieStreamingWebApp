@@ -19,8 +19,6 @@ export interface Video {
 //todo
 //check responsiveness
 //put arrow on settings
-//make the mute icon stable have a proper unifor witdh for it
-//hide the volume slider while no on hover on it
 //put the quality of video the upper side of the gear image
 
 @Component({

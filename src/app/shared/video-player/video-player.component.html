@@ -34,7 +34,7 @@
         [value]="currentTime"
       />
 
-      <button (click)="togglePlayPause()">
+      <button class="play-pause-button" (click)="togglePlayPause()">
         <img
           src="assets/images/control-icons/play-solid.svg"
           *ngIf="!isPlaying"
@@ -45,32 +45,34 @@
         />
       </button>
 
-      <button (click)="toggleMuteUnmute()">
-        <img
-          *ngIf="!isMute && volume > 50"
-          src="assets/images/control-icons/volume-high-solid.svg"
+      <div class="volume-controller">
+        <button (click)="toggleMuteUnmute()">
+          <img
+            *ngIf="!isMute && volume > 50"
+            src="assets/images/control-icons/volume-high-solid.svg"
+          />
+          <img
+            *ngIf="!isMute && volume <= 50"
+            src="assets/images/control-icons/volume-low-solid.svg"
+          />
+          <img
+            *ngIf="isMute"
+            src="assets/images/control-icons/volume-xmark-solid.svg"
+          />
+        </button>
+        <input
+          class="volume-slider"
+          [ngStyle]="{
+          '--volume': volume + '%',
+        }"
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value="100"
+          (input)="onVolumeChange($event)"
         />
-        <img
-          *ngIf="!isMute && volume <= 50"
-          src="assets/images/control-icons/volume-low-solid.svg"
-        />
-        <img
-          *ngIf="isMute"
-          src="assets/images/control-icons/volume-xmark-solid.svg"
-        />
-      </button>
-      <input
-        class="volume-slider"
-        [ngStyle]="{
-        '--volume': volume + '%',
-      }"
-        type="range"
-        min="0"
-        max="100"
-        step="1"
-        value="100"
-        (input)="onVolumeChange($event)"
-      />
+      </div>
 
       <p class="time-display">{{ timeDisplay }}</p>
       <button (click)="toggleFullScreen()">
