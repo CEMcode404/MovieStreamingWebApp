@@ -16,9 +16,6 @@ export interface Video {
   type: string;
 }
 
-//todo
-//check responsiveness
-
 @Component({
   selector: 'video-player',
   standalone: true,

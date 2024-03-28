@@ -4,10 +4,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 200px;
 }
 
 .menu-header {
+  top: 0;
+  position: sticky;
   display: flex;
   background-color: var(--secondary-color);
   width: 100%;
