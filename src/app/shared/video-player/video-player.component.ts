@@ -18,8 +18,7 @@ export interface Video {
 
 //todo
 //check responsiveness
-//put arrow on settings
-//put the quality of video the upper side of the gear image
+//reset the settings on change video quality
 
 @Component({
   selector: 'video-player',

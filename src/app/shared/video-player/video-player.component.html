@@ -86,10 +86,12 @@
       <settings-menu
         (close)="closeSettings()"
         [isOpen]="isSettingsOpen"
-        class="settings-menu"
+        class="settings-menu main-settings-menu"
       >
-        <button (click)="openPlayback()">Playback speed</button>
-        <button (click)="openQualityMenu()">Quality</button>
+        <button (click)="openPlayback()">
+          <span>Playback speed</span><span>&gt;</span>
+        </button>
+        <button (click)="openQualityMenu()"><span>Quality</span>&gt;</button>
       </settings-menu>
 
       <settings-menu

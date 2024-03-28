@@ -205,3 +205,10 @@ input[type="range"].progress-bar::-webkit-slider-thumb {
     background-color: var(--secondary-color-active);
   }
 }
+
+.main-settings-menu {
+  button {
+    display: flex;
+    justify-content: space-between;
+  }
+}
