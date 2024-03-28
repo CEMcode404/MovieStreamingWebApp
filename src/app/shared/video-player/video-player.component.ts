@@ -18,7 +18,6 @@ export interface Video {
 
 //todo
 //check responsiveness
-//reset the settings on change video quality
 
 @Component({
   selector: 'video-player',
@@ -34,6 +33,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
   isPlaying = false;
   currentTime = 0;
   currentTimeInPercentage = 0;
+  currentPlaybackRate = 1;
+  currentVideoQuality = 'HD';
   timeDisplay = '00:00 / 00:00';
 
   volume = 100;
@@ -163,6 +164,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
 
   onVideoQualityChange(index: number) {
     this.defaultVideoIndex = index;
+    this.currentVideoQuality = this.videos[this.defaultVideoIndex].quality;
   }
 
   onDurationChange() {
@@ -214,6 +216,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
     this._videoPlayer.resetVideoState();
     this.updateTimeDisplay();
     this.updateProgressBar();
+    this.setPlaybackRate(this.currentPlaybackRate);
   }
 
   openSettings() {
@@ -234,6 +237,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
 
   setPlaybackRate(rate: number) {
     this._videoPlayer.setPlaybackRate(rate);
+    this.currentPlaybackRate = rate;
   }
 }
 

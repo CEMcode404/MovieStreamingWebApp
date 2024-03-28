@@ -212,3 +212,23 @@ input[type="range"].progress-bar::-webkit-slider-thumb {
     justify-content: space-between;
   }
 }
+
+.settings-menu-button {
+  position: relative;
+}
+
+.settings-menu-button::after {
+  background-color: var(--secondary-color);
+  content: attr(videoQuality);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6rem;
+  color: var(--primary-color);
+  position: absolute;
+  top: 0;
+  transform: translate(80%, -30%);
+  width: fit-content;
+  height: 60%;
+  overflow: hidden;
+}

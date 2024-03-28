@@ -79,7 +79,11 @@
         <img src="assets/images/control-icons/expand-solid.svg" />
       </button>
 
-      <button (click)="openSettings()">
+      <button
+        [attr.videoQuality]="videos[defaultVideoIndex].quality"
+        class="settings-menu-button"
+        (click)="openSettings()"
+      >
         <img src="assets/images/control-icons/gear-solid.svg" />
       </button>
 
@@ -89,7 +93,7 @@
         class="settings-menu main-settings-menu"
       >
         <button (click)="openPlayback()">
-          <span>Playback speed</span><span>&gt;</span>
+          <span>Playback speed</span>&gt;
         </button>
         <button (click)="openQualityMenu()"><span>Quality</span>&gt;</button>
       </settings-menu>
@@ -104,7 +108,11 @@
         <label
           *ngFor="let rate of playbackRates"
           (click)="setPlaybackRate(rate)"
-          ><input name="playbackRate" type="radio" [checked]="rate === 1" />
+          ><input
+            name="playbackRate"
+            type="radio"
+            [checked]="rate === currentPlaybackRate"
+          />
           {{ rate === 1 ? "Normal" : rate }}
         </label>
       </settings-menu>
@@ -122,7 +130,7 @@
           ><input
             name="videoQuality"
             type="radio"
-            [checked]="videoSrc.quality === 'HD'"
+            [checked]="videoSrc.quality === currentVideoQuality"
           />
           {{ videoSrc.quality }}
         </label>
