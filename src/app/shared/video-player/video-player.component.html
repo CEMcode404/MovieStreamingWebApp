@@ -6,6 +6,7 @@
   class="video-container"
 >
   <video
+    (click)="togglePlayPause()"
     (loadeddata)="onVideoSrcChange()"
     (progress)="onBufferProgressUpdate()"
     (durationchange)="onDurationChange()"

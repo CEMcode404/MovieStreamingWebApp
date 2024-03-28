@@ -146,6 +146,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
       this._videoPlayer.play();
       this.isPlaying = true;
     }
+
+    this.videoPlayer.nativeElement.querySelector('.play-pause-button').focus();
   }
 
   onVideoEnded() {

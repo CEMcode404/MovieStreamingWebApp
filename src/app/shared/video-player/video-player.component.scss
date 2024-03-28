@@ -6,6 +6,7 @@
   background-color: var(--tertiary-color);
 
   video {
+    cursor: pointer;
     width: 100%;
     aspect-ratio: 1/0.57;
   }
@@ -99,6 +100,10 @@ button:hover {
 
 .play-pause-button {
   aspect-ratio: 1/1;
+}
+
+.play-pause-button:focus {
+  outline: none;
 }
 
 .progress-bar,
