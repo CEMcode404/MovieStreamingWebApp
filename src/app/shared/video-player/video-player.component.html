@@ -60,6 +60,10 @@
         />
       </button>
       <input
+        class="volume-slider"
+        [ngStyle]="{
+        '--volume': volume + '%',
+      }"
         type="range"
         min="0"
         max="100"

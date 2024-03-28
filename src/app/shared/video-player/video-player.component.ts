@@ -21,7 +21,6 @@ export interface Video {
 //put arrow on settings
 //make the mute icon stable have a proper unifor witdh for it
 //hide the volume slider while no on hover on it
-//change the color of the volume thumb and provide a lower fill
 //put the quality of video the upper side of the gear image
 
 @Component({

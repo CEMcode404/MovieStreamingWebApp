@@ -69,7 +69,8 @@ button:hover {
   cursor: pointer;
 }
 
-.progress-bar {
+.progress-bar,
+.volume-slider {
   position: relative;
 }
 
@@ -91,6 +92,15 @@ button:hover {
   bottom: 0;
 }
 
+.volume-slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: var(--volume);
+  background-color: var(--primary-color);
+  bottom: 0;
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -105,6 +115,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"]::-webkit-slider-thumb {
+  cursor: pointer;
   position: relative;
   z-index: 1;
   -webkit-appearance: none;
@@ -112,8 +123,12 @@ input[type="range"]::-webkit-slider-thumb {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: var(--secondary-color);
+  background: var(--primary-color);
   margin-top: -4px;
+}
+
+input[type="range"].progress-bar::-webkit-slider-thumb {
+  background-color: var(--secondary-color);
 }
 
 .settings-menu {
