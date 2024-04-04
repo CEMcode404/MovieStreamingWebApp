@@ -234,8 +234,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
   duration = 0;
   bufferProgress = 100;
   isControllerVisible = true;
-  isSettingsOpen = false;
-  isPlaybackSpeedOpen = false;
+  isSettingsMenuOpen = false;
+  isPlaybackSpeedMenuOpen = false;
   isQualityMenuOpen = false;
   playbackRates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
@@ -246,27 +246,27 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
       new State(
         'CloseAll',
         () => {
-          this.isSettingsOpen = false;
-          this.isPlaybackSpeedOpen = false;
+          this.isSettingsMenuOpen = false;
+          this.isPlaybackSpeedMenuOpen = false;
         },
         () => {}
       ),
       new State(
         'Settings',
         () => {
-          this.isSettingsOpen = true;
+          this.isSettingsMenuOpen = true;
         },
         () => {
-          this.isSettingsOpen = false;
+          this.isSettingsMenuOpen = false;
         }
       ),
       new State(
         'PlaybackSpeed',
         () => {
-          this.isPlaybackSpeedOpen = true;
+          this.isPlaybackSpeedMenuOpen = true;
         },
         () => {
-          this.isPlaybackSpeedOpen = false;
+          this.isPlaybackSpeedMenuOpen = false;
         }
       ),
       new State(
@@ -280,8 +280,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
       ),
     ],
     () => {
-      this.isSettingsOpen = false;
-      this.isPlaybackSpeedOpen = false;
+      this.isSettingsMenuOpen = false;
+      this.isPlaybackSpeedMenuOpen = false;
       this.isQualityMenuOpen = false;
     }
   );
@@ -412,19 +412,19 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
     this.setPlaybackRate(this.currentPlaybackRate);
   }
 
-  openSettings() {
+  openSettingsMenu() {
     this._settingsDropDownStates.setState('Settings');
   }
 
-  closeSettings() {
+  closeSettingsMenu() {
     this._settingsDropDownStates.resetToDefaultState();
   }
 
-  openPlayback() {
+  openPlaybackMenu() {
     this._settingsDropDownStates.setState('PlaybackSpeed');
   }
 
-  openQualityMenu() {
+  openVideoQualityMenu() {
     this._settingsDropDownStates.setState('Quality');
   }
 

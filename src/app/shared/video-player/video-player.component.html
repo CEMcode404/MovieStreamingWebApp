@@ -82,27 +82,27 @@
       <button
         [attr.videoQuality]="videos && videos[defaultVideoIndex].quality"
         class="settings-menu-button"
-        (click)="openSettings()"
+        (click)="openSettingsMenu()"
       >
         <img src="assets/images/control-icons/gear-solid.svg" />
       </button>
 
       <settings-menu
-        (close)="closeSettings()"
-        [isOpen]="isSettingsOpen"
+        (close)="closeSettingsMenu()"
+        [isOpen]="isSettingsMenuOpen"
         class="settings-menu main-settings-menu"
       >
-        <button (click)="openPlayback()">
+        <button (click)="openPlaybackMenu()">
           <span>Playback speed</span>&gt;
         </button>
-        <button (click)="openQualityMenu()"><span>Quality</span>&gt;</button>
+        <button (click)="openVideoQualityMenu()"><span>Quality</span>&gt;</button>
       </settings-menu>
 
       <settings-menu
         [showBackButton]="true"
-        (goBack)="openSettings()"
-        (close)="closeSettings()"
-        [isOpen]="isPlaybackSpeedOpen"
+        (goBack)="openSettingsMenu()"
+        (close)="closeSettingsMenu()"
+        [isOpen]="isPlaybackSpeedMenuOpen"
         class="settings-menu"
       >
         <label
@@ -119,8 +119,8 @@
 
       <settings-menu
         [showBackButton]="true"
-        (goBack)="openSettings()"
-        (close)="closeSettings()"
+        (goBack)="openSettingsMenu()"
+        (close)="closeSettingsMenu()"
         [isOpen]="isQualityMenuOpen"
         class="settings-menu"
       >

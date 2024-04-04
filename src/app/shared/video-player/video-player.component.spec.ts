@@ -296,40 +296,40 @@ describe('VideoPlayerComponent', () => {
 
   describe('video-settings', () => {
     beforeEach(() => {
-      component.isSettingsOpen = true;
-      component.isPlaybackSpeedOpen = true;
+      component.isSettingsMenuOpen = true;
+      component.isPlaybackSpeedMenuOpen = true;
       component.isQualityMenuOpen = true;
     });
 
-    it('openSettings should open the main settings and close other settings menu', () => {
-      component.openSettings();
+    it('openSettingsMenu should open the main settings and close other settings menu', () => {
+      component.openSettingsMenu();
 
-      expect(component.isSettingsOpen).toBeTrue();
-      expect(component.isPlaybackSpeedOpen).toBeFalse();
+      expect(component.isSettingsMenuOpen).toBeTrue();
+      expect(component.isPlaybackSpeedMenuOpen).toBeFalse();
       expect(component.isQualityMenuOpen).toBeFalse();
     });
 
-    it('closeSettings should close all the menu settings', () => {
-      component.closeSettings();
+    it('closeSettingsMenu should close all the menu settings', () => {
+      component.closeSettingsMenu();
 
-      expect(component.isSettingsOpen).toBeFalse();
-      expect(component.isPlaybackSpeedOpen).toBeFalse();
+      expect(component.isSettingsMenuOpen).toBeFalse();
+      expect(component.isPlaybackSpeedMenuOpen).toBeFalse();
       expect(component.isQualityMenuOpen).toBeFalse();
     });
 
-    it('openPlayback should open the playbackrate menu and close other settings menu', () => {
-      component.openPlayback();
+    it('openPlaybackMenu should open the playbackrate menu and close other settings menu', () => {
+      component.openPlaybackMenu();
 
-      expect(component.isSettingsOpen).toBeFalse();
-      expect(component.isPlaybackSpeedOpen).toBeTrue();
+      expect(component.isSettingsMenuOpen).toBeFalse();
+      expect(component.isPlaybackSpeedMenuOpen).toBeTrue();
       expect(component.isQualityMenuOpen).toBeFalse();
     });
 
-    it('openQualityMenu should open the quality menu and close other settings menu', () => {
-      component.openQualityMenu();
+    it('openVideoQualityMenu should open the quality menu and close other settings menu', () => {
+      component.openVideoQualityMenu();
 
-      expect(component.isSettingsOpen).toBeFalse();
-      expect(component.isPlaybackSpeedOpen).toBeFalse();
+      expect(component.isSettingsMenuOpen).toBeFalse();
+      expect(component.isPlaybackSpeedMenuOpen).toBeFalse();
       expect(component.isQualityMenuOpen).toBeTrue();
     });
   });
