@@ -12,11 +12,18 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { VideoPlayerComponent } from '../../shared/video-player/video-player.component';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [NavBarComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [
+    NavBarComponent,
+    FooterComponent,
+    CommonModule,
+    FormsModule,
+    VideoPlayerComponent,
+  ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss',
 })
@@ -50,20 +57,24 @@ export class MoviesComponent implements OnInit {
           this.movie = isMovieNotNull;
           this.selectedQuality = this.movie.videoSrc[0] as VideoSrc;
         } else {
-          LogService.error(
+          this.handleError(
             Error(`Something went wrong. Movie with id: ${movieId} is missing.`)
           );
         }
       } catch (error) {
-        this._router.navigateByUrl('/not-found');
-        LogService.error(Error('Failed to get movies.'));
+        this.handleError(Error('Failed to get movies.'));
       }
     } else {
-      LogService.error(
+      this.handleError(
         Error(
           '"/movies" path guard is malfunctioning, allowing empty IDs to pass through.'
         )
       );
     }
+  }
+
+  private handleError(errorMessage: Error) {
+    LogService.error(errorMessage);
+    this._router.navigateByUrl('/not-found', { skipLocationChange: true });
   }
 }

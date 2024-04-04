@@ -9,28 +9,6 @@ h1 {
   grid-column: span 2;
 }
 
-.video-container {
-  border-radius: 5px;
-  overflow: hidden;
-  margin: 2rem 0;
-  background-color: var(--tertiary-color);
-
-  video {
-    box-shadow: 0px 0px 10px var(--secondary-color);
-    width: 100%;
-  }
-}
-
-.quality-selector {
-  display: flex;
-  padding: 1rem;
-
-  select {
-    margin-left: auto;
-    border: none;
-  }
-}
-
 .movie-details {
   border-top: white solid 1px;
   padding-top: 2rem;
@@ -75,11 +53,6 @@ h1 {
 }
 
 @media screen and (max-width: 1200px) {
-  .video-container {
-    margin: 2rem 1rem;
-    width: calc(100% - 2rem);
-  }
-
   .movie-details {
     margin: 0 1rem;
   }
