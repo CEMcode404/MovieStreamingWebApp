@@ -239,7 +239,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
   isQualityMenuOpen = false;
   playbackRates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
-  private hideControllerDebouncer = new CustomDebounce(3000);
+  private _hideControllerDebouncer = new CustomDebounce(3000);
   private _videoPlayer!: VideoPlayer;
   private _settingsDropDownStates = new OneTrueAllFalseState(
     [
@@ -316,7 +316,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._videoPlayer.clearAllSubscriptionToTimeChanges();
-    this.hideControllerDebouncer.cancel();
+    this._hideControllerDebouncer.cancel();
   }
 
   async toggleFullScreen(): Promise<void> {
@@ -327,7 +327,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
         ).requestFullscreen();
   }
 
-  private isVideoInFullscreen(): boolean {
+  isVideoInFullscreen(): boolean {
     return !!document.fullscreenElement;
   }
 
@@ -388,18 +388,18 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
     if (this.isVideoInFullscreen()) {
       this.isControllerVisible = false;
     } else {
-      this.hideControllerDebouncer.cancel();
+      this._hideControllerDebouncer.cancel();
       this.isControllerVisible = true;
     }
   }
 
   onMouseMove() {
-    this.hideControllerDebouncer.cancel();
+    this._hideControllerDebouncer.cancel();
     if (!this.isVideoInFullscreen()) return;
 
     this.isControllerVisible = true;
 
-    this.hideControllerDebouncer.debounce(() => {
+    this._hideControllerDebouncer.debounce(() => {
       this.isControllerVisible = false;
     });
   }

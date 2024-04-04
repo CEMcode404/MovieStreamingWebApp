@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { VideoPlayerComponent } from './video-player.component';
 import movies from '../../../assets/mock-data/movies.json';
@@ -8,14 +13,10 @@ describe('VideoPlayerComponent', () => {
   let component: VideoPlayerComponent;
   let fixture: ComponentFixture<VideoPlayerComponent>;
   const videoSrcs = movies[0].videoSrc;
-  let document: jasmine.SpyObj<Document>;
 
   beforeEach(async () => {
-    document = jasmine.createSpyObj('Document', ['exitFullscreen']);
-
     await TestBed.configureTestingModule({
       imports: [VideoPlayerComponent],
-      providers: [{ provide: Document, useValue: document }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VideoPlayerComponent);
@@ -27,15 +28,16 @@ describe('VideoPlayerComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  function getVideoElement(): HTMLVideoElement {
+    return fixture.debugElement.query(By.css('video')).nativeElement;
+  }
+
   describe('updateTimeDisplay', () => {
     it('should update the display time equivalent to video current time', () => {
       const startCurrentTime = component.timeDisplay.slice(0, 5);
       expect(startCurrentTime).toBe('00:00');
 
-      (
-        fixture.debugElement.query(By.css('video'))
-          .nativeElement as HTMLVideoElement
-      ).currentTime = 3599;
+      getVideoElement().currentTime = 3599;
 
       component.updateTimeDisplay();
       fixture.detectChanges();
@@ -48,10 +50,7 @@ describe('VideoPlayerComponent', () => {
       const startCurrentTime = component.timeDisplay.slice(0, 5);
       expect(startCurrentTime).toBe('00:00');
 
-      (
-        fixture.debugElement.query(By.css('video'))
-          .nativeElement as HTMLVideoElement
-      ).currentTime = 61;
+      getVideoElement().currentTime = 61;
 
       component.updateTimeDisplay();
       fixture.detectChanges();
@@ -64,10 +63,7 @@ describe('VideoPlayerComponent', () => {
       const startCurrentTime = component.timeDisplay.slice(0, 5);
       expect(startCurrentTime).toBe('00:00');
 
-      (
-        fixture.debugElement.query(By.css('video'))
-          .nativeElement as HTMLVideoElement
-      ).currentTime = 3600;
+      getVideoElement().currentTime = 3600;
 
       component.updateTimeDisplay();
       fixture.detectChanges();
@@ -75,71 +71,40 @@ describe('VideoPlayerComponent', () => {
       const newCurrentTime = component.timeDisplay.slice(0, 8);
       expect(newCurrentTime).toBe('01:00:00');
     });
-
-    //find a way to test duration
-    // it('should update video duration', () => {
-    //   component.videos = videoSrcs;
-    //   component.defaultVideoIndex = 0;
-
-    //   fixture.detectChanges();
-    //   component.updateTimeDisplay();
-    //   fixture.detectChanges();
-
-    //   console.log(component.timeDisplay);
-    // });
   });
 
-  describe('updateProgressBar', () => {
-    it('should update progress bar value to match the current time', () => {
-      const durationInMillisec = 3600;
-      const halfOfDurationInMin = 1800 / 1000;
-      component.duration = durationInMillisec;
+  it('updateProgressBar should update progress bar value to match the current time', () => {
+    const durationInMillisec = 3600;
+    const halfOfDurationInMin = 1800 / 1000;
+    component.duration = durationInMillisec;
 
-      expect(
-        parseInt(
-          (
-            fixture.debugElement.query(By.css('.progress-bar'))
-              .nativeElement as HTMLInputElement
-          ).value
-        )
-      ).toBe(0);
+    expect(parseInt(getProgressBar().value)).toBe(0);
+    getVideoElement().currentTime = halfOfDurationInMin;
+    component.updateProgressBar();
+    fixture.detectChanges();
 
-      (
-        fixture.debugElement.query(By.css('video'))
-          .nativeElement as HTMLVideoElement
-      ).currentTime = halfOfDurationInMin;
-      component.updateProgressBar();
-      fixture.detectChanges();
-
-      expect(
-        parseInt(
-          (
-            fixture.debugElement.query(By.css('.progress-bar'))
-              .nativeElement as HTMLInputElement
-          ).value
-        )
-      ).toBe(component.currentTime);
-
-      //result is nan becuse video.duration is undefined , find a way to set duration
-      // expect(component.currentTimeInPercentage).toBe(
-      //   (component.currentTime / component.duration) * 100
-      // );
-    });
+    expect(parseInt(getProgressBar().value)).toBe(component.currentTime);
   });
+
+  function getProgressBar(): HTMLInputElement {
+    return fixture.debugElement.query(By.css('.progress-bar')).nativeElement;
+  }
 
   describe('toggleFullScreen', () => {
-    // it('should exit fullscreen mode if on fullscreen', async () => {
-    //   spyOn(component.videoPlayer.nativeElement, 'requestFullscreen');
-    //   //fix this
-    //   await component.toggleFullScreen();
-    //   fixture.detectChanges();
-    //   await component.toggleFullScreen();
+    beforeEach(() => {
+      spyOn(component.videoPlayer.nativeElement, 'requestFullscreen');
+    });
 
-    //   expect(document.exitFullscreen).toHaveBeenCalled();
-    // });
+    it('should exit fullscreen mode if on fullscreen', async () => {
+      spyOn(document, 'exitFullscreen');
+      spyOn(component, 'isVideoInFullscreen').and.returnValue(true);
+
+      await component.toggleFullScreen();
+
+      expect(document.exitFullscreen).toHaveBeenCalled();
+    });
 
     it('should enter fullscreen mode if not on fullscreen', async () => {
-      spyOn(component.videoPlayer.nativeElement, 'requestFullscreen');
       await component.toggleFullScreen();
 
       expect(
@@ -148,75 +113,235 @@ describe('VideoPlayerComponent', () => {
     });
   });
 
-  // describe('togglePlayPause', () => {
-  //   it('should play video if video is on not playing', () => {});
-  //   it('should pause video if video is  playing', () => {});
-  // });
+  describe('togglePlayPause', () => {
+    it('should play video if video is not playing', () => {
+      const videoElement = getVideoElement();
+      spyOn(videoElement, 'play');
 
-  // describe('togglePlayPause', () => {
-  //   it('should play video if video is on not playing', () => {});
-  //   it('should pause video if video is  playing', () => {});
-  //   it('should focus play button', () => {});
-  // });
+      component.togglePlayPause();
 
-  // describe('onVideoEnd', () => {
-  //   it('should reset the video variables', () => {});
-  // });
+      expect(videoElement.play).toHaveBeenCalled();
+      expect(component.isPlaying).toBeTrue();
+    });
 
-  // describe('toggleMuteUnmute', () => {
-  //   it('should mute video video if it is unmute', () => {});
+    it('should pause video if video is playing', () => {
+      component.isPlaying = true;
+      const videoElement = getVideoElement();
+      spyOn(videoElement, 'pause');
 
-  //   it('should unmute video if video mute', () => {});
-  // });
+      component.togglePlayPause();
 
-  // describe('onVolumeChange', () => {
-  //   it('should adjust volume base on volume slider', () => {});
-  // });
+      expect(videoElement.pause).toHaveBeenCalled();
+      expect(component.isPlaying).toBeFalse();
+    });
 
-  // describe('onVideoQualityChange', () => {
-  //   it('should change videoQuality', () => {});
-  // });
+    it('should focus play button', () => {
+      const videoElement = getVideoElement();
+      const playButton = fixture.debugElement.query(
+        By.css('.play-pause-button')
+      ).nativeElement as HTMLButtonElement;
+      spyOn(videoElement, 'play');
+      spyOn(playButton, 'focus');
 
-  // describe('onDurationChange', () => {
-  //   it('should set the total duration of a video', () => {});
-  // });
+      component.togglePlayPause();
 
-  // describe('onBufferProgressUpdate', () => {
-  //   it('should set the buffer progress', () => {});
-  //   it('should buffer progress display width should be 100% by default', () => {});
-  // });
+      expect(playButton.focus).toHaveBeenCalled();
+    });
+  });
 
-  // describe('onProgressBarValueChange', () => {
-  //   it('should update time display', () => {});
-  //   it('should call update progress bar', () => {});
-  //   it('shoud match the current time value of progress bar and video', () => {});
-  // });
+  describe('toggleMuteUnmute', () => {
+    it('should mute video if it is unmute', () => {
+      component.toggleMuteUnmute();
 
-  // describe('onFullScreenChange', () => {
-  //   it('should hide the controller on fullscreen', () => {});
-  //   it('should show the controller if not on fullscreen', () => {});
-  // });
+      expect(component.isMute).toBeTrue();
+    });
 
-  // describe('onMouseMove', () => {
-  //   it('should show the controller on mousemove on fullscreen', () => {});
-  //   it('should hide the controller after mousemove on fullscreen after debounce time', () => {});
-  // });
+    it('should unmute video if video mute', () => {
+      component.isMute = true;
 
-  // describe('onVideoSrcChange', () => {
-  //   it('should stop the video', () => {});
-  //   it('should reset time display', () => {});
-  //   it('should reset progressbar', () => {});
-  //   it('should maintain the playbackrate', () => {});
-  // });
+      component.toggleMuteUnmute();
 
-  // describe('video-settings', () => {
-  //   it('openSettings should open the main settings and close other settings menu', () => {});
-  //   it('closeSettings should close all the menu settings', () => {});
-  //   it('openPlayback should open the playbackrate menu and close other settings menu', () => {});
-  //   it('openQualityMenu should open the quality menu and close other settings menu', () => {});
-  // });
+      expect(component.isMute).toBeFalse();
+    });
+  });
 
-  // describe('setPlaybackRate', () => {
-  //   it('should set the playback rate of the video', () => {});
-  // });
+  describe('on* handlers', () => {
+    it('onVideoEnd should reset the video variables', () => {
+      component.isPlaying = true;
+      getVideoElement().dispatchEvent(new Event('ended'));
+
+      expect(component.isPlaying).toBeFalse();
+    });
+
+    it('onVolumeChange should adjust volume base on volume slider', () => {
+      const mockEvent = {
+        target: {
+          value: '50',
+        },
+      } as unknown as Event;
+
+      component.onVolumeChange(mockEvent);
+
+      expect(component.volume).toBe(50);
+    });
+
+    it('onVideoQualityChange should change videoQuality', () => {
+      component.videos = videoSrcs;
+      const newVideoQuality = videoSrcs[1].quality;
+      component.currentVideoQuality = videoSrcs[0].quality;
+
+      component.onVideoQualityChange(1);
+
+      expect(component.currentVideoQuality).toBe(newVideoQuality);
+      expect(component.defaultVideoIndex).toBe(1);
+    });
+
+    describe('onProgressBarValueChange', () => {
+      const mockEvent = {
+        target: {
+          value: '1000',
+        },
+      } as unknown as Event;
+
+      it('should update time display', () => {
+        spyOn(component, 'updateTimeDisplay');
+
+        component.onProgressBarValueChange(mockEvent);
+
+        expect(component.updateTimeDisplay).toHaveBeenCalled();
+      });
+
+      it('should call update progress bar', () => {
+        spyOn(component, 'updateProgressBar');
+
+        component.onProgressBarValueChange(mockEvent);
+
+        expect(component.updateProgressBar).toHaveBeenCalled();
+      });
+    });
+
+    describe('onFullScreenChange', () => {
+      it('should hide the controller on fullscreen', () => {
+        component.isControllerVisible = true;
+        spyOn(component, 'isVideoInFullscreen').and.returnValue(true);
+
+        component.onFullScreenChange();
+
+        expect(component.isControllerVisible).toBeFalse();
+      });
+
+      it('should show the controller if not on fullscreen', () => {
+        component.isControllerVisible = false;
+        spyOn(component, 'isVideoInFullscreen').and.returnValue(false);
+
+        component.onFullScreenChange();
+
+        expect(component.isControllerVisible).toBeTrue();
+      });
+    });
+
+    describe('onMouseMove', () => {
+      beforeEach(() => {
+        component.isControllerVisible = false;
+        spyOn(component, 'isVideoInFullscreen').and.returnValue(true);
+      });
+
+      it('should show the controller on mousemove on fullscreen', () => {
+        component.onMouseMove();
+
+        expect(component.isControllerVisible).toBeTrue();
+      });
+
+      it('should hide the controller after mousemove on fullscreen after debounce time', fakeAsync(() => {
+        const defaultDebounceTimeInMilliSec = 3000;
+
+        component.onMouseMove();
+
+        expect(component.isControllerVisible).toBeTrue();
+        tick(defaultDebounceTimeInMilliSec);
+        expect(component.isControllerVisible).toBeFalse();
+      }));
+    });
+
+    describe('onVideoSrcChange', () => {
+      it('should change the video playing state', () => {
+        component.isPlaying = true;
+        component.onVideoSrcChange();
+
+        expect(component.isPlaying).toBeFalse();
+      });
+
+      it('should reset time display', () => {
+        spyOn(component, 'updateTimeDisplay');
+        component.onVideoSrcChange();
+
+        expect(component.updateTimeDisplay).toHaveBeenCalled();
+      });
+
+      it('should reset progressbar', () => {
+        spyOn(component, 'updateProgressBar');
+        component.onVideoSrcChange();
+
+        expect(component.updateProgressBar).toHaveBeenCalled();
+      });
+
+      it('should maintain the playbackrate', () => {
+        spyOn(component, 'setPlaybackRate');
+        component.onVideoSrcChange();
+
+        expect(component.setPlaybackRate).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('video-settings', () => {
+    beforeEach(() => {
+      component.isSettingsOpen = true;
+      component.isPlaybackSpeedOpen = true;
+      component.isQualityMenuOpen = true;
+    });
+
+    it('openSettings should open the main settings and close other settings menu', () => {
+      component.openSettings();
+
+      expect(component.isSettingsOpen).toBeTrue();
+      expect(component.isPlaybackSpeedOpen).toBeFalse();
+      expect(component.isQualityMenuOpen).toBeFalse();
+    });
+
+    it('closeSettings should close all the menu settings', () => {
+      component.closeSettings();
+
+      expect(component.isSettingsOpen).toBeFalse();
+      expect(component.isPlaybackSpeedOpen).toBeFalse();
+      expect(component.isQualityMenuOpen).toBeFalse();
+    });
+
+    it('openPlayback should open the playbackrate menu and close other settings menu', () => {
+      component.openPlayback();
+
+      expect(component.isSettingsOpen).toBeFalse();
+      expect(component.isPlaybackSpeedOpen).toBeTrue();
+      expect(component.isQualityMenuOpen).toBeFalse();
+    });
+
+    it('openQualityMenu should open the quality menu and close other settings menu', () => {
+      component.openQualityMenu();
+
+      expect(component.isSettingsOpen).toBeFalse();
+      expect(component.isPlaybackSpeedOpen).toBeFalse();
+      expect(component.isQualityMenuOpen).toBeTrue();
+    });
+  });
+
+  it('setPlaybckRate should set the playback rate of the video', () => {
+    const newPlaybackRate = 2;
+    component.currentPlaybackRate = 1;
+
+    component.setPlaybackRate(newPlaybackRate);
+    fixture.detectChanges();
+
+    expect(getVideoElement().playbackRate).toBe(newPlaybackRate);
+    expect(component.currentPlaybackRate).toBe(newPlaybackRate);
+  });
 });

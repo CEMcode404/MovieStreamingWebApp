@@ -62,7 +62,7 @@
 
 .time-display {
   margin: 0;
-  text-wrap: nowrap;
+  white-space: nowrap;
   overflow: hidden;
 }
 
@@ -189,7 +189,7 @@ input[type="range"].progress-bar::-webkit-slider-thumb {
     width: 100%;
     padding: 0.5rem;
     color: var(--primary-color);
-    text-wrap: nowrap;
+    white-space: nowrap;
   }
 
   label {
