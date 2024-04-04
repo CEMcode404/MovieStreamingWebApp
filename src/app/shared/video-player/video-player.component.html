@@ -2,7 +2,6 @@
   (fullscreenchange)="onFullScreenChange()"
   (mousemove)="onMouseMove()"
   #videoPlayer
-  *ngIf="videos"
   class="video-container"
 >
   <video
@@ -13,7 +12,7 @@
     [volume]="volume / maxVolume"
     [muted]="isMute"
     class="video-element"
-    src="{{ videos[defaultVideoIndex].src }}"
+    src="{{ videos && videos[defaultVideoIndex].src }}"
     (ended)="onVideoEnded()"
   >
     Your browser does not support the video tag.
@@ -81,7 +80,7 @@
       </button>
 
       <button
-        [attr.videoQuality]="videos[defaultVideoIndex].quality"
+        [attr.videoQuality]="videos && videos[defaultVideoIndex].quality"
         class="settings-menu-button"
         (click)="openSettings()"
       >

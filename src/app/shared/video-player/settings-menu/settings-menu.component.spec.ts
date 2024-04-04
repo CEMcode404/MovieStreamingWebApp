@@ -19,4 +19,18 @@ describe('SettingsMenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('onClose handler should emit close event', () => {
+    spyOn(component.close, 'emit');
+    component.onClose();
+
+    expect(component.close.emit).toHaveBeenCalled();
+  });
+
+  it('onGoBack handler should emit goBack event', () => {
+    spyOn(component.goBack, 'emit');
+    component.onGoBack();
+
+    expect(component.goBack.emit).toHaveBeenCalled();
+  });
 });

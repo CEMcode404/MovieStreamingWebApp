@@ -7,7 +7,6 @@ import { LogService } from '../../services/log/log.service';
 import { Movie, MoviesService } from '../../services/movies/movies.service';
 import movies from '../../../assets/mock-data/movies.json';
 import { Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -109,27 +108,6 @@ describe('MoviesComponent', () => {
       await component.onQueryParamsChange({ id: validId });
 
       expect(component.selectedQuality).not.toBeUndefined();
-    });
-  });
-
-  describe('video quality select', () => {
-    it('should match the video src to selectedQuality src', () => {
-      component.movie = movieSampleData;
-      component.selectedQuality = movieSampleData.videoSrc[0];
-      fixture.detectChanges();
-
-      const videoSrc = fixture.debugElement.query(
-        By.css('.video-container video')
-      ).attributes['src'];
-      expect(videoSrc).toMatch(component.selectedQuality.src);
-
-      component.selectedQuality = movieSampleData.videoSrc[1];
-      fixture.detectChanges();
-
-      const newVideoSrc = fixture.debugElement.query(
-        By.css('.video-container video')
-      ).attributes['src'];
-      expect(newVideoSrc).toMatch(component.selectedQuality.src);
     });
   });
 });
