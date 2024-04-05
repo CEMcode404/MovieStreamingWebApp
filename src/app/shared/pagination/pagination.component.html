@@ -1,7 +1,7 @@
 <div #pagination class="pagination" *ngIf="totalPages > 1">
   <nav>
     <span class="arrow-wrapper" (click)="gotoPreviousPage()"
-      ><img class="arrow" src="/assets/images/chevron-left-solid.svg"
+      ><img alt="previous arrow" class="arrow" src="/assets/images/chevron-left-solid.svg"
     /></span>
     <div class="page-numbers-wrapper">
       <span
@@ -14,7 +14,7 @@
       >
     </div>
     <span class="arrow-wrapper" (click)="gotoNextPage()"
-      ><img class="arrow" src="/assets/images/chevron-right-solid.svg"
+      ><img alt="next arrow" class="arrow" src="/assets/images/chevron-right-solid.svg"
     /></span>
   </nav>
 </div>

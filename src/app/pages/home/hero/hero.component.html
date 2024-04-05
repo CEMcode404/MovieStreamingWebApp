@@ -5,7 +5,7 @@
     (mouseleave)="startHeroRotation(5000)"
   >
     <div *ngFor="let hero of heroes" class="hero-img-container">
-      <img class="hero-img" src="{{ hero.src }}" />
+      <img alt="hero image" class="hero-img" src="{{ hero.src }}" />
       <div class="hero-description">
         <h2 class="hero-title">
           {{ hero.title }}
@@ -17,6 +17,7 @@
   </section>
   <div class="nav-bttns" *ngIf="heroes.length > 1">
     <input
+      aria-label="hero nav button"
       name="nav-bttn"
       [checked]="displayedHeroIndex === i"
       (click)="handleRadioBttnsClick($event)"
