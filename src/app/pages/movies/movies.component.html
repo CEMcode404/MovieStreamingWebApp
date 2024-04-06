@@ -7,7 +7,7 @@
     ></video-player>
   </div>
   <section class="movie-details" *ngIf="movie">
-    <img src="{{ movie.imgSrc }}" />
+    <img alt="{{movie.title}}" src="{{ movie.imgSrc }}" />
 
     <h1>{{ movie.title | titlecase }}</h1>
     <p class="description">{{ movie.description }}</p>

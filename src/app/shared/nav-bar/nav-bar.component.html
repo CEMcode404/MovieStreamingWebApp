@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <img class="brand-logo" src="/assets/images/streammovies-logo.png" />
+    <img class="brand-logo" alt="brand-logo" src="/assets/images/streammovies-logo.png" />
     <div
       class="horizontal-links"
       [style.visibility]="isBurgerMenuMode ? 'hidden' : 'visible'"
@@ -43,12 +43,15 @@
 
     <div class="search-bar-wrapper">
       <input
+        aria-label="search-bar"
+        name="search-bar"
         (keydown.enter)="gotoSearchResults()"
         type="search"
         [formControl]="inputControl"
         (blur)="onBlur($event)"
       />
       <img
+        alt="search-icon"
         class="search-icon"
         src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Search_Icon.svg"
       />

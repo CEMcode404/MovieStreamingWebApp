@@ -20,63 +20,80 @@
 
   <div class="controller-wrapper">
     <div class="controller" *ngIf="isControllerVisible">
-      <input
-        (input)="onProgressBarValueChange($event)"
-        [ngStyle]="{
-          '--loadWidth': bufferProgress + '%',
-          '--currentTime': currentTimeInPercentage + '%'
-        }"
-        class="progress-bar"
-        type="range"
-        min="0"
-        [max]="duration"
-        step="1"
-        [value]="currentTime"
-      />
-
+      <!-- Firefox don't have ::before and ::after support for input type range so use I it on a wrapper to
+        achieve the same result
+      -->
+        <div
+          class="progress-bar-wrapper"
+          [ngStyle]="{
+            '--loadWidth': bufferProgress + '%',
+            '--currentTime': currentTimeInPercentage + '%'
+          }"
+        >
+          <input
+            aria-label="video progress bar"
+            (input)="onProgressBarValueChange($event)"
+            class="progress-bar"
+            type="range"
+            min="0"
+            [max]="duration"
+            step="1"
+            [value]="currentTime"
+          />
+        </div>
+      
       <button class="play-pause-button" (click)="togglePlayPause()">
         <img
+          alt="play button"
           src="assets/images/control-icons/play-solid.svg"
           *ngIf="!isPlaying"
         />
         <img
+          alt="pause button"
           src="assets/images/control-icons/pause-solid.svg"
           *ngIf="isPlaying"
         />
       </button>
 
       <div class="volume-controller">
-        <button (click)="toggleMuteUnmute()">
+        <button class="mute-button" (click)="toggleMuteUnmute()">
           <img
+            alt="high volume icon"
             *ngIf="!isMute && volume > 50"
             src="assets/images/control-icons/volume-high-solid.svg"
           />
           <img
+            alt="low volume icon"
             *ngIf="!isMute && volume <= 50"
             src="assets/images/control-icons/volume-low-solid.svg"
           />
           <img
+            alt="mute icon"
             *ngIf="isMute"
             src="assets/images/control-icons/volume-xmark-solid.svg"
           />
         </button>
-        <input
-          class="volume-slider"
+        <div
           [ngStyle]="{
-          '--volume': volume + '%',
-        }"
-          type="range"
-          min="0"
-          max="100"
-          step="1"
-          value="100"
-          (input)="onVolumeChange($event)"
-        />
+          '--volume': volume + '%'}"
+          class="volume-slider-wrapper"
+        >
+          <input
+            aria-label="volume slider"
+            class="volume-slider"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value={{volume}}
+            (input)="onVolumeChange($event)"
+          />
+        </div>
       </div>
 
       <p class="time-display">{{ timeDisplay }}</p>
       <button (click)="toggleFullScreen()">
-        <img src="assets/images/control-icons/expand-solid.svg" />
+        <img alt="fullscreen icon" src="assets/images/control-icons/expand-solid.svg" />
       </button>
 
       <button
@@ -84,7 +101,7 @@
         class="settings-menu-button"
         (click)="openSettingsMenu()"
       >
-        <img src="assets/images/control-icons/gear-solid.svg" />
+        <img alt="options icon" src="assets/images/control-icons/gear-solid.svg" />
       </button>
 
       <settings-menu

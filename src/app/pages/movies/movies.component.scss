@@ -4,7 +4,9 @@ main {
 }
 
 h1 {
-  color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  color: var(--primary-color);
   margin-top: 0;
   grid-column: span 2;
 }
@@ -19,6 +21,7 @@ h1 {
     border-radius: 10px;
     aspect-ratio: 1/1.5;
     max-width: 300px;
+    width: 300px;
     margin-right: 2rem;
     grid-row: span 10;
   }
@@ -42,8 +45,8 @@ h1 {
   justify-self: flex-end;
   grid-column: 2;
   padding-right: 1rem;
-  color: var(--secondary-color-hover);
-  line-height: 1.6rem;
+  color: rgba(255, 255, 255, 0.728);
+  line-height: 2rem;
   margin: 0;
 }
 
@@ -73,7 +76,6 @@ h1 {
     justify-self: flex-end;
     grid-column: 1;
     padding-right: 1rem;
-    color: var(--secondary-color-hover);
     line-height: 1.6rem;
     margin: 0;
   }
