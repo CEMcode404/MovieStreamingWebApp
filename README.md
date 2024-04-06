@@ -23,6 +23,24 @@ StreamMovies.com is a personal project website built to explore and learn Angula
    git clone https://github.com/CEMcode404/MovieStreamingWebApp.git
    ```
 
+2. Go to MovieStreamingWebApp folder:
+
+   ```bash
+   cd MovieStreamingWebApp
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+Note: You need the @angular/cli to run the angular server. If you don't have it intalled yet run the command below:
+
+    ```bash
+    npm install -g @angular/cli
+    ```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
