@@ -37,9 +37,8 @@ StreamMovies.com is a personal project website built to explore and learn Angula
 
 Note: You need the @angular/cli to run the angular server. If you don't have it intalled yet run the command below:
 
-    ```bash
     npm install -g @angular/cli
-    ```
+   
 
 ## Development server
 
